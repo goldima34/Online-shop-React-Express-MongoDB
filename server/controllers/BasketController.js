@@ -1,5 +1,5 @@
-import Basket from "../models/BasketModel.js";
-import BasketItem from "../models/ItemModel.js";
+const Basket = require("../models/BasketModel.js");
+const BasketItem = require("../models/ItemModel.js");
 
 class BasketController {
   async create(req, res) {
@@ -47,4 +47,4 @@ class BasketController {
   }
 }
 
-export default new BasketController();
+module.exports = new BasketController();

@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const Post = new mongoose.Schema({
-    author: {type: String, required: true},
-    title: {type: String, required: true},
-    content: {type: String, required: true},
-    picture: {type: String}
-})
+  author: { type: String, required: true },
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  picture: { type: String },
+});
 
-export default mongoose.model('Post', Post)
+module.exports = mongoose.model("Post", Post);

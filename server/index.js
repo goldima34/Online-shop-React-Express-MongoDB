@@ -1,10 +1,11 @@
-import {} from "dotenv/config";
-import express from "express";
-import router from "./routers/index.js";
-import mongoose from "mongoose";
-import fileUpload from "express-fileupload";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+require("dotenv").config();
+const express = require("express");
+const router = require("./routers/index.js");
+const mongoose = require("mongoose");
+const fileUpload = require("express-fileupload");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const ErrorMidleware = require("./middlewares/ErrorMidleware.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +17,7 @@ app.use(express.static("static"));
 app.use("/api", router);
 app.use(cookieParser());
 app.use(cors());
+app.use(ErrorMidleware);
 
 const start = async () => {
   try {

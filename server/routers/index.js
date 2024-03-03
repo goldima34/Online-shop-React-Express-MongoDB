@@ -1,8 +1,8 @@
-import { Router } from "express";
-import postRouter from "./PostRouter.js"
-import basketRouter from './BasketRouter.js'
-import itemRouter from "./ItemRouter.js";
-import userRouter from "./UserRouter.js";
+const { Router } = require("express");
+const postRouter = require("./PostRouter.js");
+const basketRouter = require("./BasketRouter.js");
+const itemRouter = require("./ItemRouter.js");
+const userRouter = require("./UserRouter.js");
 
 const router = new Router();
 
@@ -11,4 +11,4 @@ router.use("/posts", postRouter);
 router.use("/basket", basketRouter);
 router.use("/user", userRouter);
 
-export default router;
+module.exports = router;

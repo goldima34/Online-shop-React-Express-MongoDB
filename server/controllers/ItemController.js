@@ -1,4 +1,5 @@
-import itemService from "../Services/ItemService.js";
+const { model } = require("mongoose");
+const itemService = require("../Services/ItemService.js");
 
 class ItemController {
   async create(req, res) {
@@ -11,4 +12,4 @@ class ItemController {
   }
 }
 
-export default new ItemController();
+module.exports = new ItemController();

@@ -1,5 +1,5 @@
-import Post from "../models/PostModel.js";
-import fileServise from "./fileService.js";
+const Post = require("../models/PostModel.js");
+const fileServise = require("./fileService.js");
 
 class PostServise {
   async create(post, picture) {
@@ -40,4 +40,4 @@ class PostServise {
   }
 }
 
-export default new PostServise();
+module.exports = new PostServise();

@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import BasketItem from "./ItemModel.js";
+const mongoose = require("mongoose");
+const BasketItem = require("./ItemModel.js");
 
 const Basket = new mongoose.Schema({
   userId: { type: String, required: true },
@@ -19,4 +19,4 @@ const Basket = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Basket", Basket);
+module.exports = mongoose.model("Basket", Basket);

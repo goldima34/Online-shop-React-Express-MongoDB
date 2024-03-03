@@ -1,5 +1,5 @@
-import itemModel from "../models/ItemModel.js";
-import fileService from "./fileService.js";
+const itemModel = require("../models/ItemModel.js");
+const fileService = require("./fileService.js");
 
 class ItemService {
   async create(params, imgs) {
@@ -23,4 +23,4 @@ class ItemService {
   }
 }
 
-export default new ItemService();
+module.exports = new ItemService();

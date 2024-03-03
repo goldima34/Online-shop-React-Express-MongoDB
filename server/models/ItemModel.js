@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const Item = mongoose.Schema({
   name: { type: String, required: true, unique: false },
@@ -11,4 +11,4 @@ const Item = mongoose.Schema({
   img: [{ type: String, required: true, unique: false }],
 });
 
-export default mongoose.model("Item", Item);
+module.exports = mongoose.model("Item", Item);
