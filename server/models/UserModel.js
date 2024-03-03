@@ -1,8 +1,10 @@
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 
-const Token = mongoose.Schema({
-  user: { type: Types.ObjectId, ref: "User" },
-  refreshToken: { type: String, required: true },
+const UserModel = mongoose.Schema({
+  email: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  isActivated: { type: Boolean, default: false },
+  activationLink: { type: String },
 });
 
-export default mongoose.model("Token", Token);
+export default mongoose.model("User", UserModel);
