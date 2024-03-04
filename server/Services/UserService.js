@@ -3,7 +3,7 @@ const MailService = require("./MailService.js");
 const tokenService = require("./TokenService.js");
 const UserDto = require("../dtos/UserDto.js");
 const bcrypt = require("bcrypt");
-const { uuid } = require("uuid");
+const uuid = require("uuid");
 const UserModel = require("../models/UserModel.js");
 const ApiError = require("../exceptions/ApiError.js");
 
@@ -18,10 +18,10 @@ class UserService {
     const activationLink = uuid.v4();
     //create user and send mail
     const user = await userModel.create({ email, password: hashPassword });
-    await MailService.sendAcivationMail(
-      email,
-      `${process.env.API_URL}/api/user/activate/${activationLink}`
-    );
+    // await MailService.sendAcivationMail(
+    //   email,
+    //   `${process.env.API_URL}/api/user/activate/${activationLink}`
+    // );
     //create userModel(Dto) and tokens
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -45,11 +45,11 @@ class UserService {
   async login(email, password) {
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw ApiError.BadRequest("Користувача з таким email не знайдено");
+      return ApiError.BadRequest("Користувача з таким email не знайдено");
     }
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
-      throw ApiError.BadRequest("Невірний пароль");
+      return ApiError.BadRequest("Невірний пароль");
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -60,6 +60,40 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async logout(refreshToken) {
+    const token = await tokenService.removeToken(refreshToken);
+    return token;
+  }
+
+  async refresh(refreshToken) {
+    if (!refreshToken) {
+      throw ApiError.UnauthorizedError();
+    }
+
+    const userData = tokenService.validateRefreshToken(refreshToken);
+    const tokenFromDb = await tokenService.findToken(refreshToken);
+    if (!userData || !tokenFromDb) {
+      throw ApiError.UnauthorizedError();
+    }
+
+    // Await the asynchronous operation
+
+    const user = await UserModel.findById(userData.id);
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+    return {
+      ...tokens,
+      user: userDto,
+    };
+  }
+
+  async getAllUsers() {
+    const users = await UserModel.find();
+    return users;
   }
 }
 

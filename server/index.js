@@ -5,20 +5,26 @@ const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const ErrorMidleware = require("./middlewares/ErrorMidleware.js");
+const ErrorMidleware = require("./middlewares/ErrorMidleware");
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use(fileUpload());
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  })
+);
+app.use(fileUpload());
 app.use(express.static("static"));
 app.use("/api", router);
-app.use(cookieParser());
-app.use(cors());
 app.use(ErrorMidleware);
 
+//process.env.CLIENT_URL
 const start = async () => {
   try {
     await mongoose.connect(
