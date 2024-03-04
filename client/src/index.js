@@ -2,6 +2,7 @@ import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import UserStore from "./store/UserStore";
+import { BrowserRouter } from "react-router-dom";
 
 export const userStore = new UserStore();
 
@@ -17,7 +18,9 @@ root.render(
     }}
   >
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   </Context.Provider>
 );
