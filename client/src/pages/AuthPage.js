@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index.js";
-import UserService from "./services/UserService";
-import { LoginForm } from "./components/LoginForm";
+import UserService from "../services/UserService.js";
+import LoginForm from "../components/LoginForm";
 
 const AuthPage = () => {
   const [users, setUsers] = useState([]);
