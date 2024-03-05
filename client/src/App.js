@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "./index";
 import { observer } from "mobx-react-lite";
 import NavBar from "./components/NavBar";
-import { Routes, Route, Link } from "react-router-dom";
-import AuthPage from "./pages/AuthPage";
+import { AppRouter } from "./components/AppRouter";
 
 const App = () => {
   const { userStore } = useContext(Context);
@@ -21,9 +20,7 @@ const App = () => {
   return (
     <div>
       <NavBar />
-      <Routes>
-        <Route path="/auth" element={<AuthPage />} />
-      </Routes>
+      <AppRouter />
     </div>
   );
 };

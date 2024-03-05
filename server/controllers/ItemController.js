@@ -10,6 +10,15 @@ class ItemController {
       res.status(500).json(e.message);
     }
   }
+
+  async getAll(req, res) {
+    try {
+      const items = itemService.getAll();
+      return res.json(items);
+    } catch (e) {
+      res.status(500).json(e.message);
+    }
+  }
 }
 
 module.exports = new ItemController();

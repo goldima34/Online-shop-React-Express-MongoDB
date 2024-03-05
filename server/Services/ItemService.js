@@ -1,5 +1,5 @@
 const itemModel = require("../models/ItemModel.js");
-const fileService = require("./fileService.js");
+const fileServise = require("./fileService.js");
 
 class ItemService {
   async create(params, imgs) {
@@ -7,7 +7,7 @@ class ItemService {
     const { img } = imgs;
     const files = [];
     img.forEach((element) => {
-      files.push(fileService.saveFile(element));
+      files.push(fileServise.saveFile(element));
     });
     const item = itemModel.create({
       name: name,
@@ -20,6 +20,11 @@ class ItemService {
       img: files,
     });
     return item;
+  }
+
+  async getAll() {
+    const items = itemModel.find();
+    return items;
   }
 }
 

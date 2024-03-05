@@ -1,7 +1,7 @@
 const uuid = require("uuid");
-const { path } = require("path");
+const path = require("path");
 
-class FileServise {
+class FileService {
   saveFile(file) {
     try {
       const fileName = uuid.v4() + ".jpg";
@@ -14,4 +14,4 @@ class FileServise {
   }
 }
 
-module.export = new FileServise();
+module.exports = new FileService();
