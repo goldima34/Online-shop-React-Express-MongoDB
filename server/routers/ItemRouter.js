@@ -5,5 +5,5 @@ const router = new Router();
 
 router.post("/", ItemController.create);
 router.get("/", ItemController.getAll);
-
+router.get("/:id", ItemController.getOne);
 module.exports = router;

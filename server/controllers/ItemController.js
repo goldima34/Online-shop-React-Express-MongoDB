@@ -19,6 +19,12 @@ class ItemController {
       res.status(500).json(e.message);
     }
   }
+
+  async getOne(req, res) {
+    const { id } = req.params;
+    const item = await Device.findOne({ where: { id } });
+    return res.json(item);
+  }
 }
 
 module.exports = new ItemController();

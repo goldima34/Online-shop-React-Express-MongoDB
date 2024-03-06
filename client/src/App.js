@@ -3,6 +3,7 @@ import { Context } from "./index";
 import { observer } from "mobx-react-lite";
 import NavBar from "./components/NavBar";
 import { AppRouter } from "./components/AppRouter";
+import Shop from "./pages/Shop";
 
 const App = () => {
   const { userStore } = useContext(Context);
@@ -21,6 +22,7 @@ const App = () => {
     <div>
       <NavBar />
       <AppRouter />
+      <Shop />
     </div>
   );
 };
