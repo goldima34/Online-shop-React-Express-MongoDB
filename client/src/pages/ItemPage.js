@@ -9,7 +9,6 @@ const ItemPage = () => {
   useEffect(() => {
     fetchOneItem(id).then((data) => setItem(data));
   }, []);
-
   return (
     <Container className="mt-3">
       <Row>
@@ -17,7 +16,7 @@ const ItemPage = () => {
           <Image
             width={300}
             height={300}
-            src={process.env.REACT_APP_API_URL + item.img}
+            src={process.env.REACT_APP_API_URL + item.img[0]}
           />
         </Col>
         <Col md={4}>

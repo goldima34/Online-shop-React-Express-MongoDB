@@ -1,5 +1,6 @@
 const { model } = require("mongoose");
 const itemService = require("../Services/ItemService.js");
+const ItemModel = require("../models/ItemModel.js");
 
 class ItemController {
   async create(req, res) {
@@ -13,8 +14,15 @@ class ItemController {
 
   async getAll(req, res) {
     try {
-      const items = itemService.getAll();
-      return res.json(items);
+      let { limit, page } = req.query;
+
+      page = page || 1;
+      limit = limit || 5;
+      let offset = page * limit - limit;
+      const allItems = await ItemModel.find();
+      const totalCount = allItems.length;
+      const items = await ItemModel.find().limit(limit).skip(offset);
+      return res.json({ items, totalCount });
     } catch (e) {
       res.status(500).json(e.message);
     }

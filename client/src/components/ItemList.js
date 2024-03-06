@@ -6,11 +6,10 @@ import ProductCard from "./ProductCard";
 
 const DeviceList = observer(() => {
   const { item } = useContext(Context);
-
   return (
     <Row className="d-flex">
       {item.items.map((item) => (
-        <ProductCard key={item.id} item={item} />
+        <ProductCard key={item._id} item={item} />
       ))}
     </Row>
   );

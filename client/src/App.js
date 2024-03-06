@@ -22,7 +22,6 @@ const App = () => {
     <div>
       <NavBar />
       <AppRouter />
-      <Shop />
     </div>
   );
 };

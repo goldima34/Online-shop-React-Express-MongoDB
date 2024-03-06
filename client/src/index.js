@@ -5,20 +5,14 @@ import UserStore from "./store/UserStore";
 import ItemStore from "./store/ItemStore";
 import { BrowserRouter } from "react-router-dom";
 
-export const userStore = new UserStore();
-export const item = new ItemStore();
-
-export const Context = createContext({
-  userStore,
-  item,
-});
+export const Context = createContext(null);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Context.Provider
     value={{
-      userStore,
-      item,
+      userStore: new UserStore(),
+      item: new ItemStore(),
     }}
   >
     <React.StrictMode>

@@ -12,6 +12,7 @@ const Pages = observer(() => {
     pages.push(i + 1);
   }
 
+
   return (
     <Pagination className="mt-3">
       {pages.map((page) => (

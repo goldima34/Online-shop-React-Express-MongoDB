@@ -16,23 +16,18 @@ const Shop = observer(() => {
   useEffect(() => {
     // fetchTypes().then((data) => item.setTypes(data));
     // fetchBrands().then((data) => item.setBrands(data));
-    fetchProduct(null, null, 1, 2).then((data) => {
-      item.setItems(data.rows);
-      item.setTotalCount(data.count);
+    fetchProduct(1, 2).then((data) => {
+      item.setItems(data.items);
+      item.setTotalCount(data.totalCount);
     });
   }, []);
 
   useEffect(() => {
-    fetchProduct(
-      //   item.selectedType.id,
-      //   item.selectedBrand.id,
-      item.page,
-      2
-    ).then((data) => {
-      item.setItems(data.rows);
-      item.setTotalCount(data.count);
+    fetchProduct(item.page, 2).then((data) => {
+      item.setItems(data.items);
+      item.setTotalCount(data.totalCount);
     });
-  }, [item.page, item.selectedType, item.selectedBrand]);
+  }, [item.page]);
   //[item.page, item.selectedType, item.selectedBrand]
   return (
     <Container>
