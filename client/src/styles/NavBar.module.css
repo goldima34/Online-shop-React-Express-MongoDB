@@ -1,0 +1,13 @@
+.NavContainter{
+    height: 50px;
+    width: 100vw;
+    background-color: aqua;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.NavContainter a {
+    margin: 0 5px 0 5px ;
+    text-decoration: none;
+}
