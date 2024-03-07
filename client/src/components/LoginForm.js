@@ -8,20 +8,20 @@ const LoginForm = () => {
 
   useEffect(() => {
     const registerBtn = document.getElementById('register')
-    const container = document.getElementById('container')
     const loginBtn = document.getElementById('login')
-
+    
   }, [])
+  const container = document.getElementById('container')
 
-  const ClickLog = () => {
-    userStore.registration(email, password)
-    container.classList.remove("active")
-  }
+  // const ClickLog = () => {
+  //   userStore.registration(email, password)
+  //   container.classList.remove("active")
+  // }
 
-  const ClickReg = () => {
-    userStore.registration(email, password)
-    container.classList.add("active")
-  }
+  // const ClickReg = () => {
+  //   userStore.registration(email, password)
+  //   container.classList.add("active")
+  // }
 
 
   return (
@@ -45,7 +45,7 @@ const LoginForm = () => {
                 type="password"
                 placeholder="Password"
               />
-              <button onClick={() => userStore.loginBtn(email, password)}>Логин</button>
+              <button onClick={() => userStore.registration(email, password)}>Логин</button>
             </form>
           </div>
           <div className={`${styles.formContainer} ${styles.signIn}`}>
@@ -54,7 +54,7 @@ const LoginForm = () => {
               <input type="email" placeholder="Email" />
               <input type="password" placeholder="Password" />
               <a href="#">Forget your password?</a>
-              <button>Sign In</button>
+              <button onClick={() => userStore.login(email, password)}>Sign In</button>
             </form>
           </div>
           <div className={styles.toogleContainer}>
@@ -62,14 +62,18 @@ const LoginForm = () => {
               <div className={`${styles.tooglePannel} ${styles.toogleLeft}`}>
                 <h1>Welcome Back!</h1>
                 <p>Enter your personal details to use all of site features</p>
-                <button className={styles.hidden} id="login">Sign In</button>
+                <button className={styles.hidden} id="login" 
+                onClick={
+                  () => container.classList.remove(`${styles.active}`)
+                }
+                >Sign In</button>
               </div>
               <div className={`${styles.tooglePannel} ${styles.toogleRight}`}>
                 <h1>Hello!</h1>
                 <p>Register with your personal details to use all of site features</p>
 
                 <button className={styles.hidden} id="register"
-                  onClick={ClickReg()}>
+                  onClick={() => container.classList.add(`${styles.active}`)}>
                   Регистрация
                 </button>
               </div>
