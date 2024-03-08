@@ -10,7 +10,12 @@ export default class AuthService {
   }
 
   static async logout() {
-    console.log("123")
     return $api.post("/user/logout");
+  }
+
+  static async refresh() {
+    return $api.get("/user/refresh", {
+      withCredentials: true,
+    });
   }
 }

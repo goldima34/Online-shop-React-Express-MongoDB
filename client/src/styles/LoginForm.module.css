@@ -57,7 +57,7 @@
     border-color: #fff;
 }
 
-.container form {
+.container .formLogin {
     background-color: #fff;
     display: flex;
     align-items: center;

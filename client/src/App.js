@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import NavBar from "./components/NavBar";
 import { AppRouter } from "./components/AppRouter";
 import Shop from "./pages/Shop";
-import "./styles/index.module.css"
+import "./styles/index.module.css";
 
 const App = () => {
   const { userStore } = useContext(Context);
@@ -15,10 +15,9 @@ const App = () => {
         await userStore.checkAuth();
       }
     }
-
     fetchData();
   }, []);
-
+  console.log(userStore.isAuth);
   return (
     <div>
       <NavBar />
