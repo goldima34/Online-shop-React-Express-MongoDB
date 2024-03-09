@@ -1,14 +1,24 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../";
 import styles from "../styles/LoginForm.module.css";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const { userStore } = useContext(Context);
-
+  const navigate = useNavigate();
   const container = document.getElementById("container");
+
+  const loginFunc = (email, password) => {
+    if (email && password) {
+      userStore.login(email, password);
+    }
+    if (userStore.isAuth) {
+      navigate("/cabinet");
+    } else {
+    }
+  };
   return (
     <>
       <div className={styles.LoginFormBody}>
@@ -51,9 +61,7 @@ const LoginForm = () => {
                 placeholder="Password"
               />
               <a href="#">Forget your password?</a>
-              <button onClick={() => userStore.login(email, password)}>
-                Sign In
-              </button>
+              <button onClick={() => loginFunc()}>Sign In</button>
             </div>
           </div>
           <div className={styles.toogleContainer}>

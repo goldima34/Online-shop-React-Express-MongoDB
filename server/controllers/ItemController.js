@@ -1,7 +1,6 @@
-const { model } = require("mongoose");
+const { model, default: mongoose } = require("mongoose");
 const itemService = require("../Services/ItemService.js");
 const ItemModel = require("../models/ItemModel.js");
-
 class ItemController {
   async create(req, res) {
     try {
@@ -29,9 +28,13 @@ class ItemController {
   }
 
   async getOne(req, res) {
-    const { id } = req.params;
-    const item = await Device.findOne({ where: { id } });
-    return res.json(item);
+    try {
+      const { id } = req.params;
+      const item = await ItemModel.findById(id);
+      return res.json(item);
+    } catch (error) {
+      res.status(500).json(error.message);
+    }
   }
 }
 

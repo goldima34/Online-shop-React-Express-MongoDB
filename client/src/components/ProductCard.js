@@ -1,13 +1,15 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ item }) => {
+  const navigate = useNavigate();
   return (
     <Col
       md={3}
       className={"mt-3"}
-      //   onClick={() => history.push(PRODUCT_ROUTE + "/" + device.id)}
+      onClick={() => navigate(`/product/${item._id}`)}
     >
       <Card style={{ width: 150, cursor: "pointer" }} border={"light"}>
         <Image

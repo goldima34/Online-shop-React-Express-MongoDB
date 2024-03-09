@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { fetchOneItem } from "../http/itemApi";
+import { fetchOneProduct } from "../api/ItemApi";
+import { ImgSlider } from "../components/ImgSlider";
 
 const ItemPage = () => {
-  const [item, setItem] = useState({ info: [] });
+  const [item, setItem] = useState();
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   useEffect(() => {
-    fetchOneItem(id).then((data) => setItem(data));
+    fetchOneProduct(id).then((data) => {
+      setItem(data);
+      setLoading(false);
+    });
   }, []);
+
+  if (loading) {
+    return <div>loading</div>;
+  }
+
   return (
     <Container className="mt-3">
       <Row>
         <Col md={4}>
-          <Image
-            width={300}
-            height={300}
-            src={process.env.REACT_APP_API_URL + item.img[0]}
-          />
+          <ImgSlider images={item.img} />
         </Col>
         <Col md={4}>
           <Card

@@ -8,7 +8,7 @@ const UserModel = require("../models/UserModel.js");
 const ApiError = require("../exceptions/ApiError.js");
 
 class UserService {
-  async registraton(email, password) {
+  async registration(email, password, admin) {
     //check if email exist
     const candidate = await userModel.findOne({ email });
     if (candidate) {
@@ -17,7 +17,11 @@ class UserService {
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
     //create user and send mail
-    const user = await userModel.create({ email, password: hashPassword });
+    const user = await userModel.create({
+      email,
+      password: hashPassword,
+      admin,
+    });
     // await MailService.sendAcivationMail(
     //   email,
     //   `${process.env.API_URL}/api/user/activate/${activationLink}`
@@ -52,7 +56,7 @@ class UserService {
       return ApiError.BadRequest("Невірний пароль");
     }
     const userDto = new UserDto(user);
-    
+
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);

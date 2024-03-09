@@ -8,6 +8,7 @@ export default class Store {
   isAuth = false;
   isLoading = false;
   isActivate = false;
+  isAdmin = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,6 +16,10 @@ export default class Store {
 
   setAuth(bool) {
     this.isAuth = bool;
+  }
+
+  setAdmin(bool) {
+    this.isAdmin = bool;
   }
 
   setActivate(bool) {
@@ -33,6 +38,7 @@ export default class Store {
     try {
       const response = await AuthService.login(email, password);
       localStorage.setItem("token", response.data.accessToken);
+      console.log(response);
       this.setAuth(true);
       this.setUser(response.data.user);
     } catch (e) {

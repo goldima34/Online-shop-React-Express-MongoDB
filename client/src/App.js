@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar";
 import { AppRouter } from "./components/AppRouter";
 import Shop from "./pages/Shop";
 import "./styles/index.module.css";
+import { Footer } from "./components/Footer";
 
 const App = () => {
   const { userStore } = useContext(Context);
@@ -17,12 +18,15 @@ const App = () => {
     }
     fetchData();
   }, []);
-  console.log(userStore.isAuth);
+
   return (
-    <div>
+    <>
       <NavBar />
-      <AppRouter />
-    </div>
+      <div style={{ height: "80vh" }}>
+        <AppRouter />
+      </div>
+      <Footer />
+    </>
   );
 };
 
