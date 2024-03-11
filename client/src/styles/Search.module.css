@@ -1,0 +1,27 @@
+
+
+.inputSearch {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 12px 7px 20px;
+    width: 200px;
+    height: 38px;
+    border: none;
+}
+
+.btnSearch {
+    border: none;
+    background: none;
+}
+
+.btnWishList {
+    border: none;
+    background: none;
+    margin:0 5px 0 5px;
+}
+
+.btnBasket {
+    border: none;
+    background: none;
+}

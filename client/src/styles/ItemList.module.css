@@ -1,0 +1,22 @@
+.ItemListContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.ItemSliderContainer {
+    width: 1100px;
+    margin-left: 70px;
+}
+
+.sliderBtn {
+    display: flex;
+    justify-content: right;
+}
+
+.sliderBtn button{
+    background: none;
+    border: none;
+    margin: 10px ;
+}

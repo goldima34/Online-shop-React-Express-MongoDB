@@ -1,0 +1,15 @@
+.CategoryContainer {
+    padding: 20px 20px 20px 180px;
+    border-right: 1px solid;
+    width: 400px;
+}
+
+.CategoryListItem {
+    padding: 10px;
+}
+
+.CategoryListMainItem {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 900;
+}

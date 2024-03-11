@@ -16,7 +16,7 @@ class ItemController {
       let { limit, page } = req.query;
 
       page = page || 1;
-      limit = limit || 5;
+      limit = limit || 100;
       let offset = page * limit - limit;
       const allItems = await ItemModel.find();
       const totalCount = allItems.length;

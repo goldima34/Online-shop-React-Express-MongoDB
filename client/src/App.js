@@ -22,10 +22,10 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <div style={{ height: "80vh" }}>
+      <div style={{ overflow: "hidden" }}>
         <AppRouter />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

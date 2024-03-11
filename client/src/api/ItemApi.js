@@ -25,7 +25,7 @@ export const createProduct = async (device) => {
   return data;
 };
 
-export const fetchProduct = async (page, limit = 5) => {
+export const fetchProduct = async (page, limit) => {
   const { data } = await $api.get("/product", {
     params: {
       page,
