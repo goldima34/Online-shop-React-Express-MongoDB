@@ -5,8 +5,10 @@ export default class ItemStore {
     this._types = [];
     this._brands = [];
     this._items = [];
+    this._category = [];
     this._selectedType = {};
     this._selectedBrand = {};
+    this._selectedCategory = [];
     this._page = 1;
     this._totalCount = 0;
     this._limit = 6;
@@ -22,7 +24,12 @@ export default class ItemStore {
   setItems(items) {
     this._items = items;
   }
-
+  setCategory(category) {
+    this._category = category;
+  }
+  setBrands(brands) {
+    this._brands = brands;
+  }
   setSelectedType(type) {
     this.setPage(1);
     this._selectedType = type;
@@ -37,7 +44,7 @@ export default class ItemStore {
   setTotalCount(count) {
     this._totalCount = count;
   }
-
+  /////
   get types() {
     return this._types;
   }
@@ -47,11 +54,17 @@ export default class ItemStore {
   get items() {
     return this._items;
   }
+  get category() {
+    return this._category;
+  }
   get selectedType() {
     return this._selectedType;
   }
   get selectedBrand() {
     return this._selectedBrand;
+  }
+  get selectedCategory() {
+    return this._selectedCategory;
   }
   get totalCount() {
     return this._totalCount;

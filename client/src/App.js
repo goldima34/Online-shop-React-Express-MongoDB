@@ -22,9 +22,7 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <div style={{ overflow: "hidden" }}>
-        <AppRouter />
-      </div>
+      <AppRouter />
       {/* <Footer /> */}
     </>
   );

@@ -21,12 +21,12 @@ import $api from "./index";
 // };
 
 export const createProduct = async (device) => {
-  const { data } = await $api.post("/product", device);
+  const { data } = await $api.post("product/", device);
   return data;
 };
 
 export const fetchProduct = async (page, limit) => {
-  const { data } = await $api.get("/product", {
+  const { data } = await $api.get("product/", {
     params: {
       page,
       limit,
@@ -37,5 +37,15 @@ export const fetchProduct = async (page, limit) => {
 
 export const fetchOneProduct = async (id) => {
   const { data } = await $api.get("product/" + id);
+  return data;
+};
+
+export const fetchCategories = async (page, limit) => {
+  const { data } = await $api.get("category/", {
+    params: {
+      page,
+      limit,
+    },
+  });
   return data;
 };

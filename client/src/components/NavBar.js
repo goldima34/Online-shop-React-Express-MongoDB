@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../styles/NavBar.module.css";
 import { Context } from "../index";
 import { observer } from "mobx-react-lite";
@@ -35,7 +35,7 @@ const NavBar = observer(() => {
       </div>
 
       <div className={styles.navSearch}>
-        <Search/>
+        <Search />
       </div>
     </div>
   );

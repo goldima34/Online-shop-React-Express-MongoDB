@@ -3,7 +3,7 @@ const ItemModel = require("../models/ItemModel.js");
 class ItemController {
   async create(req, res) {
     try {
-      const item = itemService.create(req.body, req.files);
+      const item = await itemService.create(req.body, req.files);
       return res.json(item);
     } catch (e) {
       res.status(500).json(e.message);
@@ -30,6 +30,17 @@ class ItemController {
     try {
       const { id } = req.params;
       const item = await ItemModel.findById(id);
+      return res.json(item);
+    } catch (error) {
+      res.status(500).json(error.message);
+      console.log(error)
+    }
+  }
+
+  async getByCategory(req, res) {
+    try {
+      const { category } = req.params;
+      const item = await ItemModel.find({category: category});
       return res.json(item);
     } catch (error) {
       res.status(500).json(error.message);

@@ -3,7 +3,8 @@ const fileServise = require("./fileService.js");
 
 class ItemService {
   async create(params, imgs) {
-    const { name, type, brand, price, color, size, availability } = params;
+    const { name, type, category, brand, price, color, size, availability } =
+      params;
     const { img } = imgs;
     const files = [];
     img.forEach((element) => {
@@ -13,6 +14,7 @@ class ItemService {
       name: name,
       type: type,
       brand: brand,
+      category: category,
       price: price,
       color: color,
       size: size,

@@ -1,0 +1,35 @@
+.CarouselWrapper {
+    display: flex;
+    padding-left: 200px;
+    padding-top: 50px;
+}
+
+.miniImgList {
+    margin: 0;
+    padding: 0;
+}
+
+.miniImg {
+    /* margin-top: 10px; */
+    width: 100px;
+    height: 100px;
+}
+
+.ImgSliderBack {
+    background: none;
+    border: none;
+    margin: 10px;
+    height: 9px;
+}
+
+.ImgSliderNext {
+    background: none;
+    border: none;
+}
+
+.ImgSliderBtnContainer {
+    display: flex;
+    align-items: flex-end;
+    width: 20px;
+    padding-left: 635px;
+}

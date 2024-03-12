@@ -1,0 +1,9 @@
+.ItemWrapper {
+    display: flex;
+}
+
+.itemInfoWrapper {
+    margin-left: 100px;
+    margin-top: 50px;
+    background-color: antiquewhite;
+}
