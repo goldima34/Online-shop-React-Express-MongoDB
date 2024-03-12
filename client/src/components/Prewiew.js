@@ -22,15 +22,15 @@ export const Prewiew = () => {
         <Slider {...settings}>
           <img
             className={styles.imgPrewiew}
-            src={process.env.REACT_APP_API_URL + "img1.jpg"}
+            src={process.env.REACT_APP_API_URL + "prewiew1.png"}
           />
           <img
             className={styles.imgPrewiew}
-            src={process.env.REACT_APP_API_URL + "img1.jpg"}
+            src={process.env.REACT_APP_API_URL + "prewiew2.png"}
           />
           <img
             className={styles.imgPrewiew}
-            src={process.env.REACT_APP_API_URL + "img1.jpg"}
+            src={process.env.REACT_APP_API_URL + "prewiew3.png"}
           />
         </Slider>
       </div>

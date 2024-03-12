@@ -1,4 +1,3 @@
-const { model, default: mongoose } = require("mongoose");
 const itemService = require("../Services/ItemService.js");
 const ItemModel = require("../models/ItemModel.js");
 class ItemController {

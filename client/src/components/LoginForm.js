@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../";
 import styles from "../styles/LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
@@ -11,14 +11,18 @@ const LoginForm = () => {
   const container = document.getElementById("container");
 
   const loginFunc = (email, password) => {
-    if (email && password) {
-      userStore.login(email, password);
-    }
-    if (userStore.isAuth) {
-      navigate("/cabinet");
-    } else {
-    }
+    userStore.login(email, password);
+    setTimeout(() => {
+      if(userStore.isAuth){
+        navigate("/cabinet")
+      };
+    }, "500");
   };
+
+  const errorHandler = () => {
+    console.log("error");
+  };
+
   return (
     <>
       <div className={styles.LoginFormBody}>
@@ -61,7 +65,9 @@ const LoginForm = () => {
                 placeholder="Password"
               />
               <a href="#">Forget your password?</a>
-              <button onClick={() => loginFunc()}>Sign In</button>
+              <button onClick={() => loginFunc(email, password)}>
+                Sign In
+              </button>
             </div>
           </div>
           <div className={styles.toogleContainer}>

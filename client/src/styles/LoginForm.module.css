@@ -39,7 +39,7 @@
 }
 
 .container button {
-    background-color: #512da8;
+    background-color: #000000;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -143,9 +143,9 @@
 }
 
 .toogle {
-    background-color: #512da8;
+    background-color: #000000;
     height: 100%;
-    background: linear-gradient (to right, #5c6bc5, #512da8);
+    background: linear-gradient (to right, #444444, #000000);
     color: #fff;
     position: relative;
     left: -100%;

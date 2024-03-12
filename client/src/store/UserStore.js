@@ -38,11 +38,10 @@ export default class Store {
     try {
       const response = await AuthService.login(email, password);
       localStorage.setItem("token", response.data.accessToken);
-      console.log(response);
       this.setAuth(true);
       this.setUser(response.data.user);
     } catch (e) {
-      console.log(e.response?.data?.message);
+      console.log(e);
     }
   }
 
@@ -73,7 +72,6 @@ export default class Store {
     this.setLoading(true);
     try {
       const response = await AuthService.refresh();
-      console.log("121223:  ", response);
       localStorage.setItem("token", response.data.accessToken);
       this.setAuth(true);
       this.setUser(response.data.user);

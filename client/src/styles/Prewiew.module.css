@@ -1,11 +1,7 @@
 .ImageContainer {
-    width: 1000px;
-    height: 400px;
-    border: 1px solid;
-
-
-}
-
-.imgPrewiew {
-
+ width: 1020px;
+ height: 435px;
+ border: 1px solid;
+ margin-top: 20px;
+ margin-left: 25px;
 }

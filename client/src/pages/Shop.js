@@ -13,7 +13,7 @@ const Shop = observer(() => {
       <Row className="mt-2">
         <div style={{display: "flex"}}>
           <CategoryList />
-          {/* <Prewiew /> */}
+          <Prewiew />
         </div>
         <ItemList />
         {/* <Pages /> */}

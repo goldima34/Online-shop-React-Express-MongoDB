@@ -1,10 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../index";
 import { useNavigate } from "react-router-dom";
 
 const CabinetPage = () => {
   const { userStore } = useContext(Context);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  if (loading) {
+    {
+      if (userStore) {
+        setLoading(false);
+      }
+    }
+    return <div>loading</div>;
+  }
+
   return (
     <div>
       <h1>
