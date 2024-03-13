@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const BasketItem = require("./ItemModel.js");
 
 const Basket = new mongoose.Schema({
-  userId: { type: String, required: true },
+  userId: { type: String, required: false },
   basketItem: {
     type: [BasketItem.schema],
     required: false,

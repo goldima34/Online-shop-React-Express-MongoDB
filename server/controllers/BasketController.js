@@ -1,27 +1,28 @@
 const Basket = require("../models/BasketModel.js");
-const BasketItem = require("../models/ItemModel.js");
+const BasketItem = require("../models/BasketItem.js");
 
 class BasketController {
-  async create(req, res) {
+  async create(userId) {
     try {
-      const { userId, totalPrice } = req.body;
       const basket = await Basket.create({
-        userId: userId,
-        totalPrice: totalPrice,
+        userId,
+        totalPrice: 0,
       });
-      return res.json(basket);
+      return basket;
     } catch (e) {
       console.log("Basket controller create | " + e.message);
     }
   }
 
+  async getBasket(req, res) {}
+
   async addItemToBasket(req, res) {
     try {
       const { itemId, amount } = req.body;
-      if (!req.body._id) {
+      if (!req.params.id) {
         throw new Error("unknown id basket");
       }
-      const basket = await Basket.findById(req.body._id);
+      const basket = await Basket.findById(req.params.id);
       if (!basket) {
         throw new Error("Basket not found");
       }
@@ -29,17 +30,9 @@ class BasketController {
       if (!basket.basketItem) {
         basket.basketItem = [];
       }
-      const updatedBasket = await Basket.findByIdAndUpdate(
-        req.body._id,
-        {
-          $push: {
-            basketItem: item,
-          },
-        },
-        {
-          new: true,
-        }
-      );
+      basket.basketItem.push(...[item]); // Avoid nested arrays
+
+      const updatedBasket = await basket.save();
       return res.json(updatedBasket);
     } catch (e) {
       console.log("Basket controller addItemToBasket | " + e);

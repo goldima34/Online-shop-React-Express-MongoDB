@@ -4,10 +4,14 @@ import { useParams } from "react-router-dom";
 import { fetchOneProduct } from "../api/ItemApi";
 import { ImgSlider } from "../components/ImgSlider";
 import styles from "../styles/ItemPage.module.css";
+import { Counter } from "../components/micro/Counter";
+import { HeartIcon } from "../components/micro/Arrows";
+import { DeliveryCard } from "../components/micro/DeliveryCard";
 
 const ItemPage = () => {
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(1);
   const { id } = useParams();
   useEffect(() => {
     fetchOneProduct(id).then((data) => {
@@ -26,17 +30,31 @@ const ItemPage = () => {
         <ImgSlider images={item.img} />
         <div className={styles.itemInfoWrapper}>
           <h2>{item.name}</h2>
-          <div style={{ display: "inline" }}>
-            {item.availability ? (
-              <h5>
-                В наявності | фівафі
-              </h5>
-            ) : (
-              <h5>
-                Не в наявності <p>| фівафі</p>
-              </h5>
-            )}
+          {item.availability ? (
+            <p>
+              <span style={{ color: "green" }}>В наявності</span> |
+              <span> оптом і в роздріб</span>
+            </p>
+          ) : (
+            <p>
+              <span style={{ color: "red" }}>Не в наявності </span> |
+              <span> під замовлення</span>
+            </p>
+          )}
+          <p>{item.price} грн.</p>
+          <hr />
+          <div className={styles.btnBuyWrapper}>
+            <Counter
+              count={count}
+              addCount={() => setCount(count + 1)}
+              minusCount={() => {
+                count > 1 ? setCount(count - 1) : setCount(1);
+              }}
+            />
+            <button className={styles.addToBasketBtn}>Додати в корзину</button>
+            <button className={styles.addtowishlistBtn}><HeartIcon/></button>
           </div>
+          <DeliveryCard/>
         </div>
       </div>
     </>

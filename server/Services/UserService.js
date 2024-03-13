@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const uuid = require("uuid");
 const UserModel = require("../models/UserModel.js");
 const ApiError = require("../exceptions/ApiError.js");
+const BasketController = require("../controllers/BasketController.js");
 
 class UserService {
   async registration(email, password, admin) {
@@ -27,13 +28,15 @@ class UserService {
     //   `${process.env.API_URL}/api/user/activate/${activationLink}`
     // );
     //create userModel(Dto) and tokens
+
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
+    const basket = BasketController.create(userDto.id);
     return {
       ...tokens,
       user: userDto,
+      basket: basket,
     };
   }
 
