@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "../styles/Search.module.css";
 import { HeartIcon } from "./micro/Arrows";
+import { useNavigate } from "react-router-dom";
 
 export const Search = () => {
+  const navigate = useNavigate()
   return (
     <>
       <div className={styles.searchContainer}>
@@ -32,7 +34,8 @@ export const Search = () => {
       <button className={styles.btnWishList}>
         <HeartIcon />
       </button>
-      <button className={styles.btnSearch}>
+      {/* basket */}
+      <button onClick={() => navigate('/basket')} className={styles.btnSearch}>
         <svg
           width="24"
           height="24"

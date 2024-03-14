@@ -13,15 +13,18 @@
 .btnSearch {
     border: none;
     background: none;
+    cursor: pointer;
 }
 
 .btnWishList {
     border: none;
     background: none;
     margin:0 5px 0 5px;
+    cursor: pointer;
 }
 
 .btnBasket {
     border: none;
     background: none;
+    cursor: pointer;
 }

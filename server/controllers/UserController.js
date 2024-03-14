@@ -13,7 +13,7 @@ class UserController {
       }
       const { email, password, admin } = req.body;
       const userData = await UserService.registration(email, password, admin);
-      console.log(userData)
+      console.log(userData);
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
@@ -21,7 +21,7 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 
@@ -65,14 +65,22 @@ class UserController {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
+
+      // Call the refresh service function to handle token validation, renewal, etc.
       const userData = await UserService.refresh(refreshToken);
+
+      // Set the new refresh token in a secure cookie (consider using HttpOnly flag)
       res.cookie("refreshToken", userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
+        httpOnly: true, // Prevent client-side JavaScript access
       });
+
+      // Send the response (adjust data based on your needs)
       return res.json(userData);
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      // Handle errors appropriately (e.g., logging, sending error responses)
+      console.error("Error in refresh controller:", error);
+      next(error); // Pass the error to middleware for centralized handling
     }
   }
 

@@ -1,0 +1,11 @@
+.BasketHeader {
+    margin-top: 20px;
+    margin-left: 160px;
+    margin-right: 160px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.BasketHeader h4 {
+    padding: 20px 50px;
+}

@@ -16,30 +16,34 @@ class BasketController {
   }
 
   async getBasket(req, res) {
-    const {id} = req.params
-    const basket = await Basket.find({ userId: id });
-    console.log(basket[0].basketItem.length);
-    return res.json({
-      basket : basket[0],
-      count : basket[0].basketItem.length,
-    })
+    try {
+      const { id } = req.params;
+      const basket = await Basket.find({ userId: id });
+      return res.json({
+        basket: basket[0],
+        count: basket[0].basketItem.length,
+      });
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async addItemToBasket(req, res) {
     try {
       const { itemId, amount } = req.body;
+      // console.log(req)
       if (!req.params.id) {
         throw new Error("unknown id basket");
       }
+
       const basket = await Basket.find({ userId: req.params.id });
-  
       if (!basket) {
         throw new Error("Basket not found");
       }
       const item = await ItemModel.findById(itemId);
-      const basketItem = await BasketItem.create({item: item, count: amount})
-      const updatedBasket = await Basket.findByIdAndUpdate(
-        req.params.id,
+      const basketItem = await BasketItem.create({ item: item, count: amount });
+      const updatedBasket = await Basket.findOneAndUpdate(
+        { userId: req.params.id },
         {
           $push: {
             basketItem: basketItem,
@@ -49,12 +53,9 @@ class BasketController {
           new: true, // Return the updated document
         }
       );
-      res.status(200).json({
-        message: "Item added to basket successfully",
-        data: updatedBasket, // Send the updated basket data
-      });
+      res.status(200).json(updatedBasket);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.status(500).json({ message: "Error adding item to basket" });
     }
   }

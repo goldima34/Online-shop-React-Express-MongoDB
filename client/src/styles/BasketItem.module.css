@@ -1,0 +1,22 @@
+.BasketItemWrapper {
+    display: flex;
+    background-color: antiquewhite;
+    margin-left: 210px;
+    margin-right: 210px;
+    align-items: center;
+}
+
+.nameWrapper {
+    display: flex;
+    align-items: center;
+    width: 405px;
+}
+
+.PriceWrapper {
+    background-color: aliceblue;
+    width: 405px;
+}
+
+.nameWrapper p {
+    padding: 0 20px;
+}

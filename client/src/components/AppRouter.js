@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import AuthPage from "../pages/AuthPage";
 import Shop from "../pages/Shop";
 import CabinetPage from "../pages/CabinetPage";
 import ItemPage from "../pages/ItemPage";
 import CategoryPage from "../pages/CategoryPage";
+import { Basket } from "./Basket";
+import { Context } from "..";
 
 export const AppRouter = () => {
   return (
@@ -14,6 +16,7 @@ export const AppRouter = () => {
       <Route path="/product/:id" element={<ItemPage />} />
       <Route path="/" element={<Shop />} />
       <Route path="/category" element={<CategoryPage />} />
+      <Route path="/basket" element={<Basket />} />
     </Routes>
   );
 };
