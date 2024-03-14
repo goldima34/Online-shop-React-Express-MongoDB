@@ -1,5 +1,6 @@
 const Basket = require("../models/BasketModel.js");
 const BasketItem = require("../models/BasketItem.js");
+const ItemModel = require("../models/ItemModel.js");
 
 class BasketController {
   async create(userId) {
@@ -14,7 +15,15 @@ class BasketController {
     }
   }
 
-  async getBasket(req, res) {}
+  async getBasket(req, res) {
+    const {id} = req.params
+    const basket = await Basket.find({ userId: id });
+    console.log(basket[0].basketItem.length);
+    return res.json({
+      basket : basket[0],
+      count : basket[0].basketItem.length,
+    })
+  }
 
   async addItemToBasket(req, res) {
     try {
@@ -22,20 +31,31 @@ class BasketController {
       if (!req.params.id) {
         throw new Error("unknown id basket");
       }
-      const basket = await Basket.findById(req.params.id);
+      const basket = await Basket.find({ userId: req.params.id });
+  
       if (!basket) {
         throw new Error("Basket not found");
       }
-      const item = await BasketItem.create({ itemId: itemId, amount: amount });
-      if (!basket.basketItem) {
-        basket.basketItem = [];
-      }
-      basket.basketItem.push(...[item]); // Avoid nested arrays
-
-      const updatedBasket = await basket.save();
-      return res.json(updatedBasket);
-    } catch (e) {
-      console.log("Basket controller addItemToBasket | " + e);
+      const item = await ItemModel.findById(itemId);
+      const basketItem = await BasketItem.create({item: item, count: amount})
+      const updatedBasket = await Basket.findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: {
+            basketItem: basketItem,
+          },
+        },
+        {
+          new: true, // Return the updated document
+        }
+      );
+      res.status(200).json({
+        message: "Item added to basket successfully",
+        data: updatedBasket, // Send the updated basket data
+      });
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ message: "Error adding item to basket" });
     }
   }
 }

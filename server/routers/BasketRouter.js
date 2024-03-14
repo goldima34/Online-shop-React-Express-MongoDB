@@ -5,6 +5,6 @@ const router = new Router();
 
 router.post("/", BasketController.create);
 router.post("/:id", BasketController.addItemToBasket);
-router.get("/", BasketController.getBasket);
+router.get("/:id", BasketController.getBasket);
 
 module.exports = router;

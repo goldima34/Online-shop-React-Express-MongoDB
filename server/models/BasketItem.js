@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Item = require("./ItemModel.js");
 
 const BasketItem = mongoose.Schema({
-  item: { type: mongoose.Schema.Types.ObjectId, ref: "Item", required: true },
+  item: { type: [Item.schema], required: true },
   count: { type: Number, default: 1 },
 });
 
