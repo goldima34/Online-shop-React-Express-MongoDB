@@ -8,6 +8,7 @@ export const Basket = () => {
   const { userStore } = useContext(Context);
   const [items, setItems] = useState(null); // Set initial value to an empty array
   const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0)
   useEffect(() => {
     setInterval(() => {
       getBasket(userStore.user.id).then((data) => {
@@ -31,15 +32,16 @@ export const Basket = () => {
           <h4>Продукт</h4>
           <h4>Ціна</h4>
           <h4>Кількість</h4>
-          <h4>Всього</h4>
+          <h4 id={style.totalText}>Всього</h4>
         </div>
         {items.map((element) => (
           <BasketItem
+            key={element._id}
             item={element[0].item}
             count={element[0].count}
-            key={element._id}
           />
         ))}
+        <h4>Всього: {total}</h4>
       </>
     );
   }

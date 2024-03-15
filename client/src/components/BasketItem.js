@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/BasketItem.module.css";
+import { Counter } from "./micro/Counter";
+import { DeleteIcon } from "./micro/Arrows";
 
 export const BasketItem = ({ item, count }) => {
+  const [countState, setCountState] = useState(count);
+  const [total, setTotal] = useState(item.price * countState);
   return (
     <div className={styles.BasketItemWrapper}>
       <div className={styles.nameWrapper}>
@@ -15,8 +19,27 @@ export const BasketItem = ({ item, count }) => {
         <p>{item.price} грн.</p>
       </div>
       <div className={styles.countWrapper}>
-        <input type="number"className={styles.customInput} id="quantity" name="quantity" min="1" value={count}/>
+        <Counter
+          count={countState}
+          addCount={() => {
+            setCountState(countState + 1);
+            setTotal(item.price * (countState + 1));
+          }}
+          minusCount={() => {
+            if (countState > 1) {
+              setCountState((countState) => countState - 1);
+              setTotal(item.price * (countState - 1));
+            } else {
+              setCountState(1);
+              setTotal(item.price);
+            }
+          }}
+        />
+        <div className={styles.deleteIconWrapper}>
+          <DeleteIcon />
+        </div>
       </div>
+      <div className={styles.totalWrapper}>{total} грн.</div>
     </div>
   );
 };

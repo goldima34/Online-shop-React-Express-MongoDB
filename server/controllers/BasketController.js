@@ -28,6 +28,38 @@ class BasketController {
     }
   }
 
+  async deleteOne(req, res){
+    try {
+      const { itemId, amount } = req.body;
+      // console.log(req)
+      if (!req.params.id) {
+        throw new Error("unknown id basket");
+      }
+
+      const basket = await Basket.find({ userId: req.params.id });
+      if (!basket) {
+        throw new Error("Basket not found");
+      }
+      const item = await ItemModel.findById(itemId);
+      const basketItem = await BasketItem.create({ item: item, count: amount });
+      const updatedBasket = await Basket.findOne(
+        { userId: req.params.id },
+        {
+          $delete: {
+            basketItem: basketItem,
+          },
+        },
+        {
+          new: true, // Return the updated document
+        }
+      );
+      res.status(200).json(updatedBasket);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error adding item to basket" });
+    }
+  }
+
   async addItemToBasket(req, res) {
     try {
       const { itemId, amount } = req.body;

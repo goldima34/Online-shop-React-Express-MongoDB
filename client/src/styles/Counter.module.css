@@ -5,6 +5,7 @@
     border-width: 0px;
     background-color: #DB4444;
     border-radius: 0 3px 3px 0;
+    cursor: pointer;
 }
 
 .ButtonCount {
@@ -25,6 +26,7 @@
     border-width: 1px;
     border-radius: 3px 0 0 3px;
     background: none;
+    cursor: pointer;
 }
 
 .ButtonMinus svg {

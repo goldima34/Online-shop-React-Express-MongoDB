@@ -1,8 +1,8 @@
 .BasketItemWrapper {
+    margin-top: 20px;
     display: flex;
-    background-color: antiquewhite;
     margin-left: 210px;
-    margin-right: 210px;
+    margin-right: 180px;
     align-items: center;
 }
 
@@ -13,10 +13,27 @@
 }
 
 .PriceWrapper {
-    background-color: aliceblue;
-    width: 405px;
+    width: 375px;
+}
+
+.countWrapper{
+    width: 375px;
 }
 
 .nameWrapper p {
     padding: 0 20px;
+}
+
+.totalWrapper {
+    padding-left: 60px;
+}
+
+.countWrapper circle {
+    padding: 200px;
+}
+
+.deleteIconWrapper {
+    width: 40px;
+    padding-left: 36px;
+    cursor: pointer;
 }
