@@ -5,11 +5,10 @@ const Basket = new mongoose.Schema({
   userId: { type: String, required: false },
   basketItem: [
     {
-      type: [BasketItem.schema],
+      type: BasketItem.schema,
       required: false,
       unique: false,
       index: false,
-      default: [],
     },
   ],
   totalPrice: {
