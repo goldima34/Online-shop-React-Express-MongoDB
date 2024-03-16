@@ -5,6 +5,11 @@ export const getBasket = async (userId) => {
   return data;
 };
 
+export const deleteFromBasket = async (userId, itemId) => {
+  const { data } = await $api.delete(`basket/${userId}/${itemId}`);
+  return data;
+};
+
 export const additemToBasket = async (userId, itemId, amount) => {
   const { data } = await $api.post("basket/" + userId, {
     itemId,

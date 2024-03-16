@@ -31,8 +31,7 @@ class BasketController {
 
   async deleteOne(req, res) {
     try {
-      const { itemId } = req.body;
-      // console.log(req)
+      const itemId = req.params.itemId;
       if (!req.params.id) {
         throw new Error("unknown id basket");
       }
@@ -44,10 +43,11 @@ class BasketController {
       const item = await ItemModel.findById(itemId);
       const updatedBasket = await Basket.findOneAndUpdate(
         { userId: req.params.id },
-        { $pull: { basketItem: { itemId: itemId } } },
+        { $pull: { basketItem: { item: item } } },
         { new: true }
       );
-      console.log("Updated basket:", updatedBasket);
+      // console.log("Updated basket:", updatedBasket);
+
       res.status(200).json(updatedBasket);
     } catch (error) {
       console.error(error);
@@ -69,12 +69,10 @@ class BasketController {
         throw new Error("Basket not found");
       }
       const item = await ItemModel.findById(itemId);
-      // console.log(item)
       const basketItem = await BasketItem.create({
-        itemId: item._id,
+        item: item,
         count: amount,
       });
-      console.log();
 
       const updatedBasket = await Basket.findOneAndUpdate(
         { userId: req.params.id },

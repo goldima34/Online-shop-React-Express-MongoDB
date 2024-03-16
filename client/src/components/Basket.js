@@ -2,30 +2,30 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { getBasket } from "../api/BasketApi";
 import { BasketItem } from "./BasketItem";
-import style from '../styles/Basket.module.css'
+import style from "../styles/Basket.module.css";
+import { useNavigate } from "react-router-dom";
 
 export const Basket = () => {
+  const navigate = useNavigate()
   const { userStore } = useContext(Context);
-  const [items, setItems] = useState(null); // Set initial value to an empty array
+  const [items, setItems] = useState([]); // Set initial value to an empty array
   const [loading, setLoading] = useState(true);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
     setInterval(() => {
       getBasket(userStore.user.id).then((data) => {
         setItems(data.basket.basketItem);
         setLoading(false);
       });
-    }, 1000)
-  }, [userStore.isAuth]); // Add userStore.isAuth as a dependency
-
-  // console.log(userStore.isAuth, items);
+    }, 500);
+  }, [userStore.isAuth]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  console.log()
+
   if (userStore.isAuth && items.length > 0) {
-    // Check if user is authenticated and items exist
     return (
       <>
         <div className={style.BasketHeader}>
@@ -37,8 +37,9 @@ export const Basket = () => {
         {items.map((element) => (
           <BasketItem
             key={element._id}
-            item={element[0].item}
-            count={element[0].count}
+            item={element.item}
+            count={element.count}
+            userId={userStore.user.id}
           />
         ))}
         <h4>Всього: {total}</h4>
@@ -46,5 +47,15 @@ export const Basket = () => {
     );
   }
 
-  return null; // Return null when not authenticated or items haven't loaded
+   if (userStore.isAuth && items.length <= 0) {
+     return (
+       <>
+         <div>
+           <h4>Ваша корзина порожня</h4>
+           <button onClick={() => navigate('/')}>До магазину</button>
+         </div>
+       </>
+     );
+   }
+
 };

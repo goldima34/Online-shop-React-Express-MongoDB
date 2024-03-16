@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/BasketItem.module.css";
 import { Counter } from "./micro/Counter";
 import { DeleteIcon } from "./micro/Arrows";
+import { deleteFromBasket } from "../api/BasketApi";
 
-export const BasketItem = ({ item, count }) => {
+
+export const BasketItem = ({ item, count, userId }) => {
   const [countState, setCountState] = useState(count);
-  const [total, setTotal] = useState(item.price * countState);
+  const [total, setTotal] = useState();
   return (
     <div className={styles.BasketItemWrapper}>
       <div className={styles.nameWrapper}>
@@ -35,7 +37,10 @@ export const BasketItem = ({ item, count }) => {
             }
           }}
         />
-        <div className={styles.deleteIconWrapper}>
+        <div
+          className={styles.deleteIconWrapper}
+          onClick={() => deleteFromBasket(userId, item._id)}
+        >
           <DeleteIcon />
         </div>
       </div>
