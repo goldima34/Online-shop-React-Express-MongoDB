@@ -4,22 +4,30 @@ import { getBasket } from "../api/BasketApi";
 import { BasketItem } from "./BasketItem";
 import style from "../styles/Basket.module.css";
 import { useNavigate } from "react-router-dom";
+import { CartTotal } from "./micro/CartTotal";
 
 export const Basket = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { userStore } = useContext(Context);
   const [items, setItems] = useState([]); // Set initial value to an empty array
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
-
+  const [totalPrice, setTotalPrice] = useState(0)
+  
   useEffect(() => {
     setInterval(() => {
-      getBasket(userStore.user.id).then((data) => {
-        setItems(data.basket.basketItem);
-        setLoading(false);
-      });
+      if (userStore.isAuth) {
+        getBasket(userStore.user.id).then((data) => {
+          setItems(data.basket.basketItem)
+          setLoading(false);
+        });
+      }
     }, 500);
   }, [userStore.isAuth]);
+
+  if (!userStore.isAuth) {
+    return <div>user not auth...</div>;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -37,25 +45,29 @@ export const Basket = () => {
         {items.map((element) => (
           <BasketItem
             key={element._id}
-            item={element.item}
+            element={element}
             count={element.count}
             userId={userStore.user.id}
           />
         ))}
-        <h4>Всього: {total}</h4>
+        {/* <CartTotal total={}/> */}
       </>
     );
   }
 
-   if (userStore.isAuth && items.length <= 0) {
-     return (
-       <>
-         <div>
-           <h4>Ваша корзина порожня</h4>
-           <button onClick={() => navigate('/')}>До магазину</button>
-         </div>
-       </>
-     );
-   }
-
+  if (userStore.isAuth && items.length <= 0) {
+    return (
+      <>
+        <div className={style.ClearBasketWrapper}>
+          <div className={style.ClearBasketBtnWrapper}>
+            <h4>Ваша корзина порожня</h4>
+            <button onClick={() => navigate("/")}>
+              {" "}
+              <p>До магазину</p>
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
 };

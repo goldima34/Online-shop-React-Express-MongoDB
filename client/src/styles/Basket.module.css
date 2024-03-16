@@ -7,5 +7,29 @@
 }
 
 .BasketHeader h4 {
-padding: 20px 50px;
+    padding: 20px 50px;
+}
+
+.ClearBasketWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.ClearBasketWrapper button {
+    cursor: pointer;
+    border: none;
+    margin-left: 180px;
+    padding: 10px 20px;
+    background-color: #DB4444;
+    border-radius: 10px;
+}
+
+.ClearBasketWrapper p {
+    font-size: 30px;
+}
+
+.ClearBasketWrapper h4 {
+ font-size: 50px;
 }

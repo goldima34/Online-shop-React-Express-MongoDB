@@ -55,6 +55,72 @@ class BasketController {
     }
   }
 
+  async decreaseCount(req, res) {
+    try {
+      const itemId = req.params.itemId;
+      if (!req.params.id) {
+        throw new Error("unknown id basket");
+      }
+
+      const basket = await Basket.find({ userId: req.params.id });
+      if (!basket) {
+        throw new Error("Basket not found");
+      }
+
+      const item = await ItemModel.findById(itemId);
+      console.log(itemId);
+      const updatedBasket = await Basket.findOneAndUpdate(
+        {
+          userId: req.params.id,
+          "basketItem._id": itemId, // Уточняем, что мы хотим обновить элемент с соответствующим _id
+        },
+        {
+          $inc: { "basketItem.$.count": -1 }, // Увеличиваем count внутри найденного элемента на 1
+        },
+        { new: true }
+      );
+      console.log("Updated basket:", updatedBasket); //null
+
+      res.status(200).json(updatedBasket);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error adding item to basket" });
+    }
+  }
+
+  async increaseCount(req, res) {
+    try {
+      const itemId = req.params.itemId;
+      if (!req.params.id) {
+        throw new Error("unknown id basket");
+      }
+
+      const basket = await Basket.find({ userId: req.params.id });
+      if (!basket) {
+        throw new Error("Basket not found");
+      }
+      //       { $inc: { count: -1 } },
+      const item = await ItemModel.findById(itemId);
+      console.log(itemId)
+      const updatedBasket = await Basket.findOneAndUpdate(
+        {
+          userId: req.params.id,
+          "basketItem._id": itemId, // Уточняем, что мы хотим обновить элемент с соответствующим _id
+        },
+        {
+          $inc: { "basketItem.$.count": 1 }, // Увеличиваем count внутри найденного элемента на 1
+        },
+        { new: true }
+      );
+      //console.log("Updated basket:", updatedBasket); //null
+
+      res.status(200).json(updatedBasket);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error adding item to basket" });
+    }
+  }
+
   async addItemToBasket(req, res) {
     try {
       const { itemId, amount } = req.body;

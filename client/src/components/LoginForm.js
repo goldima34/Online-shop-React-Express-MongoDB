@@ -6,16 +6,31 @@ import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [container, setContainer] = useState();
   const { userStore } = useContext(Context);
   const navigate = useNavigate();
-  const container = document.getElementById("container");
+
+  console.log(container);
+
+  useEffect(() => {
+    setContainer(document.getElementById("container"));
+  }, []);
 
   const loginFunc = (email, password) => {
     userStore.login(email, password);
     setTimeout(() => {
-      if(userStore.isAuth){
-        navigate("/cabinet")
-      };
+      if (userStore.isAuth) {
+        navigate("/cabinet");
+      }
+    }, "500");
+  };
+
+  const registerFunc = (email, password) => {
+    userStore.registration(email, password);
+    setTimeout(() => {
+      if (userStore.isAuth) {
+        navigate("/cabinet");
+      }
     }, "500");
   };
 
@@ -44,7 +59,7 @@ const LoginForm = () => {
                 type="password"
                 placeholder="Password"
               />
-              <button onClick={() => userStore.registration(email, password)}>
+              <button onClick={() => registerFunc(email, password)}>
                 Логин
               </button>
             </div>
@@ -89,14 +104,15 @@ const LoginForm = () => {
                   Register with your personal details to use all of site
                   features
                 </p>
-
-                <button
-                  className={styles.hidden}
-                  id="register"
-                  onClick={() => container.classList.add(`${styles.active}`)}
-                >
-                  Регистрация
-                </button>
+                {container && (
+                  <button
+                    className={styles.hidden}
+                    id="register"
+                    onClick={() => container.classList.add(`${styles.active}`)}
+                  >
+                    Регистрация
+                  </button>
+                )}
               </div>
             </div>
           </div>

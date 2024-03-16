@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Search.module.css";
 import { HeartIcon } from "./micro/Arrows";
 import { useNavigate } from "react-router-dom";
+import { getBasket } from "../api/BasketApi";
+import { Context } from "..";
+import { Basket } from "./Basket";
+import { BasketPrewiew } from "./micro/BasketPrewiew";
 
 export const Search = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { userStore } = useContext(Context);
+  const [items, setItems] = useState([]);
+  const [prewiew, setPrewiew] = useState(false);
+
+  useEffect(() => {
+    setInterval(() => {
+      if (userStore.isAuth) {
+        getBasket(userStore.user.id).then((data) => {
+          setItems(data.basket.basketItem);
+        });
+      }
+    }, 500);
+  }, [userStore.isAuth]);
+
   return (
     <>
       <div className={styles.searchContainer}>
@@ -73,6 +91,15 @@ export const Search = () => {
           />
         </svg>
       </button>
+      {items.length > 0 && (
+        <div
+          onClick={() => setPrewiew(true)}
+          className={styles.basketItemsCount}
+        >
+          <p>{items.length}</p>
+        </div>
+      )}
+      <BasketPrewiew active={prewiew} setActive={setPrewiew} />
     </>
   );
 };

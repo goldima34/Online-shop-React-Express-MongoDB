@@ -1,0 +1,55 @@
+.BasketPrewiewWrapper {
+    display: flex;
+    position: fixed;
+    height: 100vh;
+    width: 200vh;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: translateX(100%);
+    /* начальный сдвиг */
+    transition: transform 0.3s ease;
+}
+
+.BasketPrewiewWrapper.active {
+    transform: scale(1);
+}
+
+.BasketPrewiewContent {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.794) 0px 22px 200px 50px;
+    position: fixed;
+    right: 0;
+    height: 100vh;
+    width: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.BasketPrewiewHeader {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(68, 68, 68, 0.401);
+}
+
+.btnOrder {
+    width: 350px;
+    height: 50px;
+    color: white;
+    background-color: #DB4444;
+    border: 0px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btnOrder:hover {
+    transition: 0.3s ease;
+    transform: scale(1.1);
+}
+
+.btnOrderWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}

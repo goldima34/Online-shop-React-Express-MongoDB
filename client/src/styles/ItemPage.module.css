@@ -30,6 +30,7 @@
     background-color: #DB4444;
     border-width: 0;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .addtowishlistBtn {
