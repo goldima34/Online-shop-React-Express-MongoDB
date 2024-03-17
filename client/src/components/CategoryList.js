@@ -11,11 +11,20 @@ export const CategoryList = () => {
   useEffect(() => {
     fetchCategories().then((data) => {
       item.setCategory(data.category);
+      setLoading(false)
     });
   }, [item.category]);
 
 
   const firstCategories = item.category.slice(0, 8);
+
+  if(loading) {
+    return (
+      <div className={styles.CategoryContainer}>
+      </div>
+    );
+  }
+
 
   return (
     <div className={styles.CategoryContainer}>

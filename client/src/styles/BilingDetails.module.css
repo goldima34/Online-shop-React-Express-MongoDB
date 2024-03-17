@@ -1,0 +1,25 @@
+.BilingWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.BilingContainer {
+    display: flex;
+    margin: 20px;
+    width: 80vw;
+    height: 85vh;
+}
+
+.BilingSuccessContainer {
+    background-color: antiquewhite;
+    width: 50%;
+}
+
+.BilingDetailsContainer {
+    background-color: aqua;
+    width: 50%;
+}
+
+.BilingDetailsContainer p{
+    font-size: 30px;
+}

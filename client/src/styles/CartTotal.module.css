@@ -1,0 +1,36 @@
+.CartTotalWrapper {
+    display: flex;
+    justify-content: end;
+    margin-top: 50px;
+    margin-right: 200px;
+}
+
+.CartTotalContet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 200px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.CartTotalTextWrapper p {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.CartTotalTextWrapper button {
+    margin: 20px;
+    margin-left: 40;
+}
+
+.CartTotalBtn {
+    color: aliceblue;
+    width: 150px;
+    height: 40px;
+    background-color: #DB4444;
+    border-width: 0;
+    border-radius: 3px;
+    cursor: pointer;
+}

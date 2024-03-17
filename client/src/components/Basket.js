@@ -12,19 +12,18 @@ export const Basket = () => {
   const [items, setItems] = useState([]); // Set initial value to an empty array
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0)
-  
+
   useEffect(() => {
     setInterval(() => {
       if (userStore.isAuth) {
         getBasket(userStore.user.id).then((data) => {
-          setItems(data.basket.basketItem)
+          setItems(data.basket.basketItem);
           setLoading(false);
         });
       }
     }, 500);
+    items.map((item) => setTotal(item.count * item.item.price));
   }, [userStore.isAuth]);
-
   if (!userStore.isAuth) {
     return <div>user not auth...</div>;
   }
@@ -50,7 +49,7 @@ export const Basket = () => {
             userId={userStore.user.id}
           />
         ))}
-        {/* <CartTotal total={}/> */}
+        <CartTotal/>
       </>
     );
   }

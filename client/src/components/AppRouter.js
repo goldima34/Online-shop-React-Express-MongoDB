@@ -7,6 +7,7 @@ import ItemPage from "../pages/ItemPage";
 import CategoryPage from "../pages/CategoryPage";
 import { Basket } from "./Basket";
 import { Context } from "..";
+import { BilingDetails } from "../pages/BilingDetails";
 
 export const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRouter = () => {
       <Route path="/" element={<Shop />} />
       <Route path="/category" element={<CategoryPage />} />
       <Route path="/basket" element={<Basket />} />
+      <Route path="/biling" element={<BilingDetails />} />
     </Routes>
   );
 };
