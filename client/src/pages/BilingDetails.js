@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../styles/BilingDetails.module.css";
+import { NewPostGetRegion } from "../api/NewPostApi";
 export const BilingDetails = () => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    NewPostGetRegion().then((data) => setData(data));
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  });
+
+  if (loading) {
+    return <div></div>;
+  }
+
   return (
     <div className={style.BilingWrapper}>
       <div className={style.BilingContainer}>
@@ -25,7 +40,16 @@ export const BilingDetails = () => {
             </div>
           </div>
         </div>
-        <div className={style.BilingSuccessContainer}>sadfsadf</div>
+        <div className={style.BilingSuccessContainer}>
+          <label for="billingOptions">Виберіть область:</label>
+          <select id="billingOptions">
+            {data.map((item) => (
+              <option key={item.id} value={item.value}>
+                {item.Description}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
   );
