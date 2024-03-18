@@ -41,8 +41,10 @@ export const BilingDetails = () => {
           </div>
         </div>
         <div className={style.BilingSuccessContainer}>
-          <label for="billingOptions">Виберіть область:</label>
           <select id="billingOptions">
+            <option>
+              Виберіть область:
+            </option>
             {data.map((item) => (
               <option key={item.id} value={item.value}>
                 {item.Description}
