@@ -1,24 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "../styles/BilingDetails.module.css";
-import { NewPostGetCity, NewPostGetRegion, NewPostGetWarehouses } from "../api/NewPostApi";
-import { Select, Button } from "antd";
+import {
+  NewPostGetCity,
+  NewPostGetRegion,
+  NewPostGetWarehouses,
+} from "../api/NewPostApi";
+import { Select, Radio } from "antd";
+import { NovaPoshta } from "../components/micro/NovaPoshta";
+import { Context } from "..";
+import { getBasket } from "../api/BasketApi";
+import { BilingDetailItem } from "../components/micro/BilingDetailItem";
 export const BilingDetails = () => {
-  const [regions, setRegions] = useState();
-  const [selectedCity, setSelectedCity] = useState();
+  const { userStore } = useContext(Context);
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchCityString, setSearchCityString] = useState("");
-  const [warehouses, setWarehouses] = useState([])
-  const [selectedWarehouses, setSelectedWarehouses] = useState();
+  const [value, setValue] = useState(1);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedWarehouse, setSelectedWarehouse] = useState(null);
 
   useEffect(() => {
-    NewPostGetCity(searchCityString).then((data) => setRegions(data));
     setTimeout(() => {
+      if (userStore.isAuth) {
+        getBasket(userStore.user.id).then((data) => {
+          setItems(data.basket.basketItem);
+        });
+      }
       setLoading(false);
     }, 500);
-  }, [searchCityString]);
+  }, []);
 
-  const getWarehouse = (selectedCity) => {
-    NewPostGetWarehouses(selectedCity).then((data) => console.log(data));
+  const handleCityChange = (city) => {
+    setSelectedCity(city);
+  };
+
+  const handleWarehouseChange = (warehouse) => {
+    setSelectedWarehouse(warehouse);
   };
 
   if (loading) {
@@ -32,64 +48,66 @@ export const BilingDetails = () => {
           <p>Деталі замовлення</p>
           <div>
             <div>
-              <label>Ваше імя</label>
-              <input />
+              <input placeholder="Ваше імя" />
             </div>
             <div>
-              <label>Ваше прізвище</label>
-              <input />
+              <input placeholder="Ваше прізвище" />
             </div>
             <div>
-              <label>Ваше місто</label>
-              <input />
-            </div>
-            <div>
-              <label>Ваш номер телефону</label>
-              <input />
+              <input placeholder="Ваш номер телефону" />
             </div>
           </div>
+          <Radio.Group onChange={(e) => setValue(e.target.value)} value={value}>
+            <Radio value={1}>Доставка по м.Житомир</Radio>
+            <Radio value={2}>Самовивіз</Radio>
+            <div>
+              <Radio value={3}>Доставка в відділення Нова пошта</Radio>
+            </div>
+          </Radio.Group>
+          {value == 3 && (
+            <NovaPoshta
+              loading={loading}
+              onCityChange={handleCityChange}
+              onWarehouseChange={handleWarehouseChange}
+            />
+          )}
+          {value == 2 && (
+            <h4>Самовивіз із магазину за адресою вул. Малинська 4</h4>
+          )}
+          {value == 1 && (
+            <div>
+              <input placeholder="Введіть адрессу доставки" />{" "}
+            </div>
+          )}
         </div>
         <div className={style.BilingSuccessContainer}>
-          <Select
-            mode="single"
-            value={selectedCity}
-            showSearch={true}
-            onChange={(value) => {
-              setSelectedCity(value);
-              getWarehouse(value);
-            }}
-            onSearch={(value) => setSearchCityString(value)} // Обновляем значение строки поиска при изменении
-            style={{ width: 120 }}
-            loading={loading}
-            filterOption={false} // Отключаем автоматический фильтр опций
-            notFoundContent={loading ? "Loading..." : "No data found"} // Отображаем сообщение при отсутствии данных
-          >
-            {regions.map((item) => (
-              <Select.Option key={item.Ref} value={item.Description}>
-                {item.Description}
-              </Select.Option>
+          <div className={style.BilingitemsContainer}>
+            {items.map((item) => (
+              <BilingDetailItem item={item} />
             ))}
-          </Select>
-          <Select
-            mode="single"
-            value={selectedCity}
-            showSearch={true}
-            onChange={(value) => {
-              setSelectedCity(value);
-              getWarehouse(value);
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "300px",
+              borderBottom: "1px solid",
             }}
-            onSearch={(value) => setSelectedWarehouses(value)} // Обновляем значение строки поиска при изменении
-            style={{ width: 120 }}
-            loading={loading}
-            filterOption={false} // Отключаем автоматический фильтр опций
-            notFoundContent={loading ? "Loading..." : "No data found"} // Отображаем сообщение при отсутствии данных
           >
-            {regions.map((item) => (
-              <Select.Option key={item.Ref} value={item.Description}>
-                {item.Description}
-              </Select.Option>
-            ))}
-          </Select>
+            <p>Всього:</p>
+            <p>
+              {items.reduce(
+                (acc, item) => acc + item.count * item.item.price,
+                0
+              )}{" "}
+              грн
+            </p>
+          </div>
+          <div>
+            <button className={style.BilingitemsBtnAccept}>
+              Підтвердити замовлення
+            </button>
+          </div>
         </div>
       </div>
     </div>

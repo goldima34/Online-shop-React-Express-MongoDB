@@ -11,15 +11,41 @@
 }
 
 .BilingSuccessContainer {
-    background-color: antiquewhite;
     width: 50%;
+    padding: 100px;
 }
 
 .BilingDetailsContainer {
-    background-color: aqua;
+    margin: 100px;
     width: 50%;
 }
 
-.BilingDetailsContainer p{
+.BilingDetailsContainer p {
     font-size: 30px;
+}
+
+.BilingDetailsContainer input {
+    background-color: #ebebeb;
+    width: 300px;
+    height: 30px;
+    border: none;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.BilingitemsContainer {
+    height: 400px;
+}
+
+.BilingitemsBtnAccept {
+    cursor: pointer;
+    color: #fff;
+    background: #DB4444;
+    border: none;
+    padding: 15px;
+    font-size: 15px;
+    border-radius: 15px;
+    margin-left: 45px;
+    margin-top: 10px;
 }
