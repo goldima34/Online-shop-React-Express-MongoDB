@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import style from "../styles/BilingDetails.module.css";
-import {
-  NewPostGetCity,
-  NewPostGetRegion,
-  NewPostGetWarehouses,
-} from "../api/NewPostApi";
-import { Select, Radio } from "antd";
+import { Radio } from "antd";
 import { NovaPoshta } from "../components/micro/NovaPoshta";
 import { Context } from "..";
-import { getBasket } from "../api/BasketApi";
+import { clearBasket, getBasket } from "../api/BasketApi";
 import { BilingDetailItem } from "../components/micro/BilingDetailItem";
-import FormError from "../components/micro/FormError";
-import 'react-hook-form'
+import { useForm } from "react-hook-form";
+import "react-hook-form";
+import { sendOrderToTelegram } from "../api/TelegramApi";
+import { PopUpInvoice } from "../components/micro/PopUpInvoice";
 
 export const BilingDetails = () => {
   const { userStore } = useContext(Context);
@@ -20,10 +17,36 @@ export const BilingDetails = () => {
   const [value, setValue] = useState(1);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedWarehouse, setSelectedWarehouse] = useState(null);
-  const [firstName, setFirstName] = useState(null)
-  const [lastName, setLastName] = useState(null)
-  const [number, setNumber] = useState(null)
+  const [deliveryError, setDeliveryError] = useState(null);
+  const [popUp, setPopUp] = useState(false);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    if (value === 3) {
+      if (!selectedCity || !selectedWarehouse) {
+        setDeliveryError(true);
+      } else {
+        setDeliveryError(false);
+        const newData = {
+          ...data,
+          city: selectedCity,
+          warehouse: selectedWarehouse,
+        };
+        sendOrderToTelegram(newData, items, 3);
+      }
+    } else if (value === 2) {
+      sendOrderToTelegram(data, items, 2);
+    } else if (value === 1) {
+      sendOrderToTelegram(data, items, 1);
+    }
+    setPopUp(true)
+    clearBasket(userStore.user.id);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -44,29 +67,40 @@ export const BilingDetails = () => {
     setSelectedWarehouse(warehouse);
   };
 
-  const handleAcceptBiling = () => {
-   
-  }
-
   if (loading) {
     return <div></div>;
   }
 
   return (
     <div className={style.BilingWrapper}>
-      <form className={style.BilingContainer}>
+      <form onSubmit={handleSubmit(onSubmit)} className={style.BilingContainer}>
         <div className={style.BilingDetailsContainer}>
-          <p>Деталі замовлення</p>
+          <span className={style.BilingHeaderText}>Деталі замовлення</span>
           <div>
             <div>
-              <input onChange={(e) => setFirstName(e.target.value)} placeholder="Ваше імя" />
-              
+              <input
+                {...register("firstName", { required: true })}
+                placeholder="Ваше імя"
+              />
+              {errors.firstName && (
+                <p className={style.errorText}>Введіть імя</p>
+              )}
             </div>
             <div>
-              <input onChange={(e) => setLastName(e.target.value)} placeholder="Ваше прізвище" />
+              <input
+                {...register("Email", { required: true })}
+                placeholder="Ваш Email"
+              />
+              {errors.Email && <p className={style.errorText}>Введіть Email</p>}
             </div>
             <div>
-              <input onChange={(e) => setNumber(e.target.value)} placeholder="Ваш номер телефону" />
+              <input
+                {...register("number", { required: true })}
+                placeholder="Ваш номер телефону"
+              />
+              {errors.number && (
+                <p className={style.errorText}>Введіть номер телефону</p>
+              )}
             </div>
           </div>
           <Radio.Group onChange={(e) => setValue(e.target.value)} value={value}>
@@ -83,12 +117,21 @@ export const BilingDetails = () => {
               onWarehouseChange={handleWarehouseChange}
             />
           )}
+          {deliveryError && (
+            <p className={style.errorText}>Введіть коректні данні</p>
+          )}
           {value == 2 && (
             <h4>Самовивіз із магазину за адресою вул. Малинська 4</h4>
           )}
           {value == 1 && (
             <div>
-              <input placeholder="Введіть адрессу доставки" />{" "}
+              <input
+                {...register("adressToDelivery", { required: true })}
+                placeholder="Введіть адрессу доставки"
+              />
+              {errors.adressToDelivery && (
+                <p className={style.errorText}>Введіть адрессу</p>
+              )}
             </div>
           )}
         </div>
@@ -116,10 +159,11 @@ export const BilingDetails = () => {
             </p>
           </div>
           <div>
-            <button onClick={handleAcceptBiling} className={style.BilingitemsBtnAccept}>
+            <button type="submit" className={style.BilingitemsBtnAccept}>
               Підтвердити замовлення
             </button>
           </div>
+          {popUp && <PopUpInvoice />}
         </div>
       </form>
     </div>

@@ -20,8 +20,9 @@
     width: 50%;
 }
 
-.BilingDetailsContainer p {
+.BilingHeaderText {
     font-size: 30px;
+    margin-left: 15px;
 }
 
 .BilingDetailsContainer input {
@@ -48,4 +49,15 @@
     border-radius: 15px;
     margin-left: 45px;
     margin-top: 10px;
+}
+
+.errorText {
+    color: #bf1650;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.errorText::before {
+    display: inline;
+    content: "⚠ ";
 }

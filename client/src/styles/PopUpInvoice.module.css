@@ -1,0 +1,50 @@
+.PopUpBg {
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(4px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PopUpWrapper {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    width: 350px;
+    height: 150px;
+    background-color: #fff;
+}
+
+.PopUpTextWrapper {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PopIconUpWrapper {
+    width: 50px;
+    margin-top: 8px;
+    margin-left: 150px;
+}
+
+.PopButtonUpWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PopButtonUpWrapper button {
+    width: 200px;
+    height: 30px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 20px;
+    background-color: #DB4444;
+    cursor: pointer;
+}

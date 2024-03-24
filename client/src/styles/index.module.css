@@ -8,3 +8,6 @@
 body {
     min-height: 100%;
 }
+input:focus {
+    outline: none;
+}

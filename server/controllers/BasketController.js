@@ -55,6 +55,32 @@ class BasketController {
     }
   }
 
+  async Clear(req, res) {
+    try {
+      const itemId = req.params.itemId;
+      if (!req.params.id) {
+        throw new Error("unknown id basket");
+      }
+
+      const basket = await Basket.find({ userId: req.params.id });
+      if (!basket) {
+        throw new Error("Basket not found");
+      }
+      const item = await ItemModel.findById(itemId);
+      const updatedBasket = await Basket.findOneAndUpdate(
+        { userId: req.params.id },
+        { $set: { basketItem: [] } },
+        { new: true }
+      );
+      console.log("Updated basket:", updatedBasket);
+
+      res.status(200).json(updatedBasket);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error deleting item from basket" });
+    }
+  }
+
   async decreaseCount(req, res) {
     try {
       const itemId = req.params.itemId;
@@ -101,7 +127,7 @@ class BasketController {
       }
       //       { $inc: { count: -1 } },
       const item = await ItemModel.findById(itemId);
-      console.log(itemId)
+      console.log(itemId);
       const updatedBasket = await Basket.findOneAndUpdate(
         {
           userId: req.params.id,
