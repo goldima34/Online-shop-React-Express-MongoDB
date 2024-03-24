@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Select } from "antd";
 import { NewPostGetCity, NewPostGetWarehouses } from "../../api/NewPostApi";
+
 export const NovaPoshta = ({ loading, onCityChange, onWarehouseChange }) => {
   const [regions, setRegions] = useState([]);
   const [selectedCity, setSelectedCity] = useState();
@@ -25,6 +26,7 @@ export const NovaPoshta = ({ loading, onCityChange, onWarehouseChange }) => {
 
   const handleWarehouseChange = (value) => {
     onWarehouseChange(value);
+    setSelectedWarehouses(value)
   };
 
   return (

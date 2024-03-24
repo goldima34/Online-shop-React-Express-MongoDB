@@ -10,6 +10,9 @@ import { NovaPoshta } from "../components/micro/NovaPoshta";
 import { Context } from "..";
 import { getBasket } from "../api/BasketApi";
 import { BilingDetailItem } from "../components/micro/BilingDetailItem";
+import FormError from "../components/micro/FormError";
+import 'react-hook-form'
+
 export const BilingDetails = () => {
   const { userStore } = useContext(Context);
   const [items, setItems] = useState([]);
@@ -17,6 +20,10 @@ export const BilingDetails = () => {
   const [value, setValue] = useState(1);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedWarehouse, setSelectedWarehouse] = useState(null);
+  const [firstName, setFirstName] = useState(null)
+  const [lastName, setLastName] = useState(null)
+  const [number, setNumber] = useState(null)
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,24 +44,29 @@ export const BilingDetails = () => {
     setSelectedWarehouse(warehouse);
   };
 
+  const handleAcceptBiling = () => {
+   
+  }
+
   if (loading) {
     return <div></div>;
   }
 
   return (
     <div className={style.BilingWrapper}>
-      <div className={style.BilingContainer}>
+      <form className={style.BilingContainer}>
         <div className={style.BilingDetailsContainer}>
           <p>Деталі замовлення</p>
           <div>
             <div>
-              <input placeholder="Ваше імя" />
+              <input onChange={(e) => setFirstName(e.target.value)} placeholder="Ваше імя" />
+              
             </div>
             <div>
-              <input placeholder="Ваше прізвище" />
+              <input onChange={(e) => setLastName(e.target.value)} placeholder="Ваше прізвище" />
             </div>
             <div>
-              <input placeholder="Ваш номер телефону" />
+              <input onChange={(e) => setNumber(e.target.value)} placeholder="Ваш номер телефону" />
             </div>
           </div>
           <Radio.Group onChange={(e) => setValue(e.target.value)} value={value}>
@@ -104,12 +116,12 @@ export const BilingDetails = () => {
             </p>
           </div>
           <div>
-            <button className={style.BilingitemsBtnAccept}>
+            <button onClick={handleAcceptBiling} className={style.BilingitemsBtnAccept}>
               Підтвердити замовлення
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
