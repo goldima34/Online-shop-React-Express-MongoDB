@@ -9,6 +9,7 @@ import { HeartIcon } from "../components/micro/Arrows";
 import { DeliveryCard } from "../components/micro/DeliveryCard";
 import { Context } from "../index";
 import { additemToBasket } from "../api/BasketApi";
+import { addItemToNotAuthBasket } from "../api/NotAuthBasketApi";
 
 const ItemPage = () => {
   const {userStore} = useContext(Context)
@@ -16,6 +17,7 @@ const ItemPage = () => {
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
   const { id } = useParams();
+
   useEffect(() => {
     fetchOneProduct(id).then((data) => {
       setItem(data);
@@ -26,6 +28,15 @@ const ItemPage = () => {
   if (loading) {
     return <div>loading</div>;
   }
+
+  const onClick = () => {
+    if(userStore.user.isAuth){
+      additemToBasket(userStore.user.id, item._id, count)
+    } else {
+      addItemToNotAuthBasket(item, count)
+    }
+  }
+
   return (
     <>
       <div className={styles.ItemWrapper}>
@@ -53,7 +64,7 @@ const ItemPage = () => {
                 count > 1 ? setCount(count - 1) : setCount(1);
               }}
             />
-            <button onClick={() => additemToBasket(userStore.user.id, item._id, count)} className={styles.addToBasketBtn}>Додати в корзину</button>
+            <button onClick={onClick} className={styles.addToBasketBtn}>Додати в корзину</button>
             <button className={styles.addtowishlistBtn}><HeartIcon/></button>
           </div>
           <DeliveryCard/>

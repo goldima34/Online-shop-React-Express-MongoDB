@@ -10,8 +10,6 @@ const LoginForm = () => {
   const { userStore } = useContext(Context);
   const navigate = useNavigate();
 
-  console.log(container);
-
   useEffect(() => {
     setContainer(document.getElementById("container"));
   }, []);

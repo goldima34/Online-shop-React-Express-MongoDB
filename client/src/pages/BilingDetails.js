@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import "react-hook-form";
 import { sendOrderToTelegram } from "../api/TelegramApi";
 import { PopUpInvoice } from "../components/micro/PopUpInvoice";
+import { getNotAuthBasket } from "../api/NotAuthBasketApi";
 
 export const BilingDetails = () => {
   const { userStore } = useContext(Context);
@@ -54,6 +55,8 @@ export const BilingDetails = () => {
         getBasket(userStore.user.id).then((data) => {
           setItems(data.basket.basketItem);
         });
+      } else {
+        setItems(getNotAuthBasket())
       }
       setLoading(false);
     }, 500);

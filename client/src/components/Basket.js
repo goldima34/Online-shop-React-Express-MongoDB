@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { getBasket } from "../api/BasketApi";
-import { BasketItem } from "./BasketItem";
+import BasketItem from "./BasketItem";
 import style from "../styles/Basket.module.css";
 import { useNavigate } from "react-router-dom";
 import { CartTotal } from "./micro/CartTotal";
+import { CreateBasket, getNotAuthBasket } from "../api/NotAuthBasketApi";
 
 export const Basket = () => {
   const navigate = useNavigate();
@@ -24,12 +25,48 @@ export const Basket = () => {
     }, 500);
     items.map((item) => setTotal(item.count * item.item.price));
   }, [userStore.isAuth]);
-  if (!userStore.isAuth) {
-    return <div>user not auth...</div>;
+
+  const basket = getNotAuthBasket();
+
+  if (!userStore.isAuth && basket.length > 0) {
+    if (!basket) {
+      CreateBasket();
+    }
+    return (
+      <>
+        <div className={style.BasketHeader}>
+          <h4>Продукт</h4>
+          <h4>Ціна</h4>
+          <h4>Кількість</h4>
+          <h4 id={style.totalText}>Всього</h4>
+        </div>
+        {basket.map((element) => (
+          <BasketItem
+            key={element._id}
+            element={element}
+            count={element.count}
+            userId={userStore.user.id}
+          />
+        ))}
+        <CartTotal />
+      </>
+    );
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (!userStore.isAuth && basket.length <= 0) {
+    return (
+      <>
+        <div className={style.ClearBasketWrapper}>
+          <div className={style.ClearBasketBtnWrapper}>
+            <h4>Ваша корзина порожня</h4>
+            <button onClick={() => navigate("/")}>
+              {" "}
+              <p>До магазину</p>
+            </button>
+          </div>
+        </div>
+      </>
+    );
   }
 
   if (userStore.isAuth && items.length > 0) {
@@ -49,7 +86,7 @@ export const Basket = () => {
             userId={userStore.user.id}
           />
         ))}
-        <CartTotal/>
+        <CartTotal />
       </>
     );
   }
@@ -68,5 +105,9 @@ export const Basket = () => {
         </div>
       </>
     );
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 };

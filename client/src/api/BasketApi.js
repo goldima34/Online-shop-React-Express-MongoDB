@@ -10,10 +10,10 @@ export const deleteFromBasket = async (userId, itemId) => {
   return data;
 };
 
-export const clearBasket = async (userId) =>  {
-  const {data} = await $api.delete(`basket/${userId}`)
+export const clearBasket = async (userId) => {
+  const { data } = await $api.delete(`basket/${userId}`);
   return data;
-}
+};
 
 export const increaseCount = async (userId, basketItemId) => {
   try {
@@ -48,3 +48,5 @@ export const additemToBasket = async (userId, itemId, amount) => {
   });
   return data;
 };
+
+

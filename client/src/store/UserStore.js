@@ -62,7 +62,7 @@ export default class Store {
       localStorage.removeItem("token");
       this.setAuth(false);
       this.setUser();
-      console.log(this.isAuth);
+      
     } catch (e) {
       console.log(e.response?.data?.message);
     }

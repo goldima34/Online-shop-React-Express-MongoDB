@@ -7,27 +7,55 @@ import {
   deleteFromBasket,
   increaseCount,
 } from "../api/BasketApi";
+import {
+  decreaseNotAuthBasket,
+  deleteNotAuthBasket,
+  increaseNotAuthBasket,
+} from "../api/NotAuthBasketApi";
+import { observer } from "mobx-react-lite";
 
-export const BasketItem = ({ element, count, userId }) => {
+const BasketItem = ({ element, count, userId }) => {
   const [countState, setCountState] = useState(count);
   const [total, setTotal] = useState(element.item.price * count);
 
   const increase = () => {
-    setCountState(countState + 1);
-    setTotal(element.item.price * (countState + 1));
-    increaseCount(userId, element._id);
+    //user auth
+    if (userId) {
+      setCountState(countState + 1);
+      setTotal(element.item.price * (countState + 1));
+      increaseCount(userId, element._id);
+    } else {
+      // user not auth
+      setCountState(countState + 1);
+      setTotal(element.item.price * (countState + 1));
+      increaseNotAuthBasket(element.item._id);
+    }
   };
 
   const decrease = () => {
-    if (countState > 1) {
-      setCountState((countState) => countState - 1);
-      setTotal(element.item.price * (countState - 1));
-      decreaseCount(userId, element._id);
+    //user auth
+    if (userId) {
+      if (countState > 1) {
+        setCountState((countState) => countState - 1);
+        setTotal(element.item.price * (countState - 1));
+        decreaseCount(userId, element._id);
+      } else {
+        // user not auth
+        setCountState(1);
+        setTotal(element.item.price);
+      }
     } else {
-      setCountState(1);
-      setTotal(element.item.price);
+      if (countState > 1) {
+        setCountState((countState) => countState - 1);
+        setTotal(element.item.price * (countState - 1));
+        decreaseNotAuthBasket(element.item._id);
+      } else {
+        setCountState(1);
+        setTotal(element.item.price);
+      }
     }
   };
+
   return (
     <div className={styles.BasketItemWrapper}>
       <div className={styles.nameWrapper}>
@@ -48,7 +76,11 @@ export const BasketItem = ({ element, count, userId }) => {
         />
         <div
           className={styles.deleteIconWrapper}
-          onClick={() => deleteFromBasket(userId, element.item._id)}
+          onClick={() =>
+            userId
+              ? deleteFromBasket(userId, element.item._id)
+              : deleteNotAuthBasket(element.item._id)
+          }
         >
           <DeleteIcon />
         </div>
@@ -57,3 +89,5 @@ export const BasketItem = ({ element, count, userId }) => {
     </div>
   );
 };
+
+export default observer(BasketItem)

@@ -3,6 +3,7 @@ import { Context } from "../..";
 import { getBasket } from "../../api/BasketApi";
 import style from "../../styles/CartTotal.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import { getSumNotAuthBasket } from "../../api/NotAuthBasketApi";
 
 export const CartTotal = () => {
   const { userStore } = useContext(Context);
@@ -15,8 +16,13 @@ export const CartTotal = () => {
       if (userStore.isAuth) {
         getBasket(userStore.user.id).then((data) => {
           setItems(data.basket.basketItem);
+          setTotal(
+            items.reduce((acc, item) => acc + item.count * item.item.price, 0)
+          );
           setLoading(false);
         });
+      } else {
+        setTotal(getSumNotAuthBasket());
       }
     }, 500);
   }, [userStore.isAuth]);
@@ -26,12 +32,14 @@ export const CartTotal = () => {
       <div className={style.CartTotalContet}>
         <div className={style.CartTotalTextWrapper}>
           <p>
-            Всього:{" "}
-            {items.reduce((acc, item) => acc + item.count * item.item.price, 0)}{" "}
+            Всього: {total}
             грн
           </p>
           <hr />
-          <button className={style.CartTotalBtn} onClick={() => navigate('/biling')}>
+          <button
+            className={style.CartTotalBtn}
+            onClick={() => navigate("/biling")}
+          >
             Зробити замовлення
           </button>
         </div>
