@@ -14,7 +14,7 @@ import {
 } from "../api/NotAuthBasketApi";
 import { observer } from "mobx-react-lite";
 
-const BasketItem = ({ element, count, userId }) => {
+const BasketItem = ({ element, count, userId , onDelete}) => {
   const [countState, setCountState] = useState(count);
   const [total, setTotal] = useState(element.item.price * count);
 
@@ -56,6 +56,14 @@ const BasketItem = ({ element, count, userId }) => {
     }
   };
 
+  const onClick = () => {
+    if (userId) {
+      deleteFromBasket(userId, element.item._id);
+    } else {
+      deleteNotAuthBasket(element.item._id);
+    }
+  };
+
   return (
     <div className={styles.BasketItemWrapper}>
       <div className={styles.nameWrapper}>
@@ -74,14 +82,7 @@ const BasketItem = ({ element, count, userId }) => {
           addCount={() => increase()}
           minusCount={() => decrease()}
         />
-        <div
-          className={styles.deleteIconWrapper}
-          onClick={() =>
-            userId
-              ? deleteFromBasket(userId, element.item._id)
-              : deleteNotAuthBasket(element.item._id)
-          }
-        >
+        <div className={styles.deleteIconWrapper} onClick={onClick}>
           <DeleteIcon />
         </div>
       </div>
@@ -90,4 +91,4 @@ const BasketItem = ({ element, count, userId }) => {
   );
 };
 
-export default observer(BasketItem)
+export default observer(BasketItem);

@@ -8,6 +8,7 @@ import CategoryPage from "../pages/CategoryPage";
 import { Basket } from "./Basket";
 import { Context } from "..";
 import { BilingDetails } from "../pages/BilingDetails";
+import { AdminPage } from "../pages/AdminPage";
 
 export const AppRouter = () => {
   return (
@@ -19,6 +20,8 @@ export const AppRouter = () => {
       <Route path="/category" element={<CategoryPage />} />
       <Route path="/basket" element={<Basket />} />
       <Route path="/biling" element={<BilingDetails />} />
+      <Route path="/biling" element={<BilingDetails />} />
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 };

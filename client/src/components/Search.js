@@ -6,6 +6,7 @@ import { getBasket } from "../api/BasketApi";
 import { Context } from "..";
 import { Basket } from "./Basket";
 import { BasketPrewiew } from "./micro/BasketPrewiew";
+import { getNotAuthBasket } from "../api/NotAuthBasketApi";
 
 export const Search = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ export const Search = () => {
         getBasket(userStore.user.id).then((data) => {
           setItems(data.basket.basketItem);
         });
+      } else {
+        setItems(getNotAuthBasket());
       }
     }, 500);
   }, [userStore.isAuth]);

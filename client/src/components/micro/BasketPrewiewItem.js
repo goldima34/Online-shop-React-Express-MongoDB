@@ -2,9 +2,16 @@ import React from "react";
 import style from "../../styles/BasketPrewiewItem.module.css";
 import { deleteFromBasket } from "../../api/BasketApi";
 import { DeleteIcon } from "./Arrows";
+import { deleteNotAuthBasket } from "../../api/NotAuthBasketApi";
 
 export const BasketPrewiewItem = ({ item, userId }) => {
-
+  const onClick = () => {
+    if (userId) {
+      deleteFromBasket(userId, item.item._id);
+    } else {
+      deleteNotAuthBasket(item.item._id);
+    }
+  };
   return (
     <>
       <div className={style.BasketPrewiewItemWrapper}>
@@ -17,7 +24,7 @@ export const BasketPrewiewItem = ({ item, userId }) => {
           <h4>Всього: {item.count * item.item.price}</h4>
           <div
             className={style.deleteIconWrapper}
-            onClick={() => deleteFromBasket(userId, item.item._id)}
+            onClick={onClick}
           >
             <DeleteIcon />
           </div>

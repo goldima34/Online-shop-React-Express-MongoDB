@@ -63,7 +63,7 @@ class UserService {
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
-
+    console.log(user);
     return {
       ...tokens,
       user: userDto,
@@ -85,7 +85,6 @@ class UserService {
 
       const tokenFromDb = await tokenService.findToken(refreshToken);
       if (!userData || !tokenFromDb) {
-         
       }
 
       const user = await UserModel.findById(userData.id);

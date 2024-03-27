@@ -10,14 +10,15 @@ import { DeliveryCard } from "../components/micro/DeliveryCard";
 import { Context } from "../index";
 import { additemToBasket } from "../api/BasketApi";
 import { addItemToNotAuthBasket } from "../api/NotAuthBasketApi";
+import { Notification, ShowNotification } from "../components/micro/Notification";
 
 const ItemPage = () => {
-  const {userStore} = useContext(Context)
+  const { userStore } = useContext(Context);
   const [item, setItem] = useState();
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
   const { id } = useParams();
-
+  
   useEffect(() => {
     fetchOneProduct(id).then((data) => {
       setItem(data);
@@ -30,12 +31,13 @@ const ItemPage = () => {
   }
 
   const onClick = () => {
-    if(userStore.user.isAuth){
-      additemToBasket(userStore.user.id, item._id, count)
+    if (userStore.user.isAuth) {
+      additemToBasket(userStore.user.id, item._id, count);
     } else {
-      addItemToNotAuthBasket(item, count)
+      addItemToNotAuthBasket(item, count);
     }
-  }
+    ShowNotification()
+  };
 
   return (
     <>
@@ -64,12 +66,18 @@ const ItemPage = () => {
                 count > 1 ? setCount(count - 1) : setCount(1);
               }}
             />
-            <button onClick={onClick} className={styles.addToBasketBtn}>Додати в корзину</button>
-            <button className={styles.addtowishlistBtn}><HeartIcon/></button>
+            <button onClick={onClick} className={styles.addToBasketBtn}>
+              Додати в корзину
+            </button>
+            <button className={styles.addtowishlistBtn}>
+              <HeartIcon />
+            </button>
           </div>
-          <DeliveryCard/>
+          <DeliveryCard />
         </div>
+        <Notification name={item.name}/>
       </div>
+      
     </>
   );
 };

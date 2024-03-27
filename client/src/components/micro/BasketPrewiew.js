@@ -5,6 +5,7 @@ import { BasketPrewiewItem } from "./BasketPrewiewItem";
 import { Context } from "../..";
 import { getBasket } from "../../api/BasketApi";
 import { useNavigate } from "react-router-dom";
+import { getNotAuthBasket } from "../../api/NotAuthBasketApi";
 
 export const BasketPrewiew = ({ active, setActive }) => {
   const { userStore } = useContext(Context);
@@ -17,6 +18,8 @@ export const BasketPrewiew = ({ active, setActive }) => {
         getBasket(userStore.user.id).then((data) => {
           setItems(data.basket.basketItem);
         });
+      } else {
+        setItems(getNotAuthBasket());
       }
     }, 500);
   }, [userStore.isAuth]);

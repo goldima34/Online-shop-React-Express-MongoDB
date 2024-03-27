@@ -1,11 +1,11 @@
 .ItemWrapper {
     display: flex;
+    justify-content: center;
 }
 
 .itemInfoWrapper {
     margin-left: 100px;
     margin-top: 50px;
-
 }
 
 .itemInfoWrapper h2 {
@@ -75,3 +75,5 @@ padding: 10px;
 .DeliveryCardFirstTextWrapper p {
     margin-bottom: 0;
 }
+
+

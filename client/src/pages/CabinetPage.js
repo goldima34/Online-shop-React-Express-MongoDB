@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../index";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CabinetPage = () => {
   const { userStore } = useContext(Context);
@@ -11,6 +11,7 @@ const CabinetPage = () => {
     {
       if (userStore) {
         setLoading(false);
+        console.log(userStore.user.isAdmin);
       }
     }
     return <div>loading</div>;
@@ -23,6 +24,7 @@ const CabinetPage = () => {
           ? `Пользователь авторизован ${userStore.user.email}`
           : "АВТОРИЗУЙТЕСЬ"}
       </h1>
+      {userStore.user.isAdmin && <Link to="/admin" >ADMIN</Link>}
       <h1>
         {userStore.isActivated
           ? "Аккаунт подтвержден по почте"

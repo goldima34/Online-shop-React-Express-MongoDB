@@ -20,8 +20,15 @@ export const addItemToNotAuthBasket = async (newItem, count) => {
 };
 
 export const getNotAuthBasket = () => {
-  let basket = JSON.parse(localStorage.getItem("basket")) || [];
-  return basket;
+  try {
+    let basket = JSON.parse(localStorage.getItem("basket")) || [];
+    return basket;
+  } catch {
+    let basket = [];
+    localStorage.setItem("basket", basket);
+    basket = JSON.parse(localStorage.getItem("basket")) || [];
+    return basket;
+  }
 };
 
 export const decreaseNotAuthBasket = (id) => {

@@ -21,17 +21,14 @@ export const Basket = () => {
           setItems(data.basket.basketItem);
           setLoading(false);
         });
+      } else {
+        setItems(getNotAuthBasket());
       }
     }, 500);
     items.map((item) => setTotal(item.count * item.item.price));
   }, [userStore.isAuth]);
 
-  const basket = getNotAuthBasket();
-
-  if (!userStore.isAuth && basket.length > 0) {
-    if (!basket) {
-      CreateBasket();
-    }
+  if (!userStore.isAuth && items.length > 0) {
     return (
       <>
         <div className={style.BasketHeader}>
@@ -40,7 +37,7 @@ export const Basket = () => {
           <h4>Кількість</h4>
           <h4 id={style.totalText}>Всього</h4>
         </div>
-        {basket.map((element) => (
+        {items.map((element) => (
           <BasketItem
             key={element._id}
             element={element}
@@ -53,7 +50,7 @@ export const Basket = () => {
     );
   }
 
-  if (!userStore.isAuth && basket.length <= 0) {
+  if (!userStore.isAuth && items.length <= 0) {
     return (
       <>
         <div className={style.ClearBasketWrapper}>
