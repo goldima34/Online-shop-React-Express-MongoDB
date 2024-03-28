@@ -31,7 +31,7 @@ const ItemPage = () => {
   }
 
   const onClick = () => {
-    if (userStore.user.isAuth) {
+    if (userStore.isAuth) {
       additemToBasket(userStore.user.id, item._id, count);
     } else {
       addItemToNotAuthBasket(item, count);

@@ -8,7 +8,7 @@ import CategoryPage from "../pages/CategoryPage";
 import { Basket } from "./Basket";
 import { Context } from "..";
 import { BilingDetails } from "../pages/BilingDetails";
-import { AdminPage } from "../pages/AdminPage";
+import { AdminPage } from "../pages/AdminPage/AdminPage";
 
 export const AppRouter = () => {
   return (

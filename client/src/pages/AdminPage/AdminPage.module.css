@@ -1,0 +1,24 @@
+.ModalButton {
+    margin: 20px 40px;
+    padding: 10px;
+    background-color: #4e4e4e;
+    color: #ffff;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@keyframes grow {
+    from {
+        scale: 1;
+    }
+
+    to {
+        scale: 1.1;
+    }
+}
+
+.ModalButton:hover {
+    animation: grow 0.5s ease;
+    scale: 1.1;
+}

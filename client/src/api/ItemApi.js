@@ -1,10 +1,5 @@
 import $api from "./index";
 
-// export const createType = async (type) => {
-//   const { data } = await $api.post("api/type", type);
-//   return data;
-// };
-
 // export const fetchTypes = async () => {
 //   const { data } = await $api.get("api/type");
 //   return data;
@@ -37,6 +32,12 @@ export const fetchProduct = async (page, limit) => {
 
 export const fetchOneProduct = async (id) => {
   const { data } = await $api.get("product/" + id);
+  return data;
+};
+
+export const createCategory = async (category) => {
+  const { data } = await $api.post("/category", category);
+  console.log(data)
   return data;
 };
 
