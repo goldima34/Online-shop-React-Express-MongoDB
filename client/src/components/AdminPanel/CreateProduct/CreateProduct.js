@@ -3,12 +3,12 @@ import styles from "./CreateProduct.module.css";
 
 export const CreateProduct = ({ show, onHide }) => {
   const [name, setName] = useState();
-  const [files, setFiles] = useState();
+  const [file, setFile] = useState();
 
   const addProduct = () => {};
 
   const selectFile = (e) => {
-    setFiles(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
   return (

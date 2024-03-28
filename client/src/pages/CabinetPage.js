@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../index";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,24 +7,27 @@ const CabinetPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  if (loading) {
-    {
-      if (userStore) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await userStore.checkAuth();
         setLoading(false);
-        console.log(userStore.user.isAdmin);
+      } catch (error) {
+        console.log(error);
       }
-    }
+    };
+
+    fetchData();
+  }, [userStore]);
+  
+  if (loading) {
     return <div>loading</div>;
   }
 
   return (
     <div>
-      <h1>
-        {userStore.isAuth
-          ? `Пользователь авторизован ${userStore.user.email}`
-          : "АВТОРИЗУЙТЕСЬ"}
-      </h1>
-      {userStore.user.isAdmin && <Link to="/admin" >ADMIN</Link>}
+      <h1>Пользователь авторизован {userStore.user.email}</h1>
+      {userStore.user.isAdmin && <Link to="/admin">ADMIN</Link>}
       <h1>
         {userStore.isActivated
           ? "Аккаунт подтвержден по почте"

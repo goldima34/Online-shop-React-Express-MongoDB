@@ -13,7 +13,7 @@ export const Basket = () => {
   const [items, setItems] = useState([]); // Set initial value to an empty array
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
-
+  
   useEffect(() => {
     setInterval(() => {
       if (userStore.isAuth) {

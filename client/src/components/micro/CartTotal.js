@@ -11,6 +11,7 @@ export const CartTotal = () => {
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
   const navigate = useNavigate();
+
   useEffect(() => {
     setInterval(() => {
       if (userStore.isAuth) {
@@ -23,18 +24,29 @@ export const CartTotal = () => {
         });
       } else {
         setTotal(getSumNotAuthBasket());
+        setLoading(false);
       }
     }, 500);
   }, [userStore.isAuth]);
+
+  useEffect(() => {
+    setTotal(
+      items.reduce((acc, item) => acc + item.count * item.item.price, 0)
+    );
+  }, [items]);
 
   return (
     <div className={style.CartTotalWrapper}>
       <div className={style.CartTotalContet}>
         <div className={style.CartTotalTextWrapper}>
-          <p>
-            Всього: {total}
-            грн
-          </p>
+          {loading ? (
+            <p>loading</p>
+          ) : (
+            <p>
+              Всього: {total}
+              грн
+            </p>
+          )}
           <hr />
           <button
             className={style.CartTotalBtn}

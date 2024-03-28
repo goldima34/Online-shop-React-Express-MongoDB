@@ -14,12 +14,16 @@ export const BasketPrewiew = ({ active, setActive }) => {
 
   useEffect(() => {
     setInterval(() => {
-      if (userStore.isAuth) {
-        getBasket(userStore.user.id).then((data) => {
-          setItems(data.basket.basketItem);
-        });
-      } else {
-        setItems(getNotAuthBasket());
+      try {
+        if (userStore.isAuth) {
+          getBasket(userStore.user.id).then((data) => {
+            setItems(data.basket.basketItem);
+          });
+        } else {
+          setItems(getNotAuthBasket());
+        }
+      } catch {
+        console.log("user not auth");
       }
     }, 500);
   }, [userStore.isAuth]);
@@ -41,9 +45,13 @@ export const BasketPrewiew = ({ active, setActive }) => {
           <h4>Ваша корзина</h4>
         </div>
         {items.length > 0 &&
-          items.map((item) => (
-            <BasketPrewiewItem item={item} userId={userStore.user.id} />
-          ))}
+          items.map((item) =>
+            userStore.user.id ? (
+              <BasketPrewiewItem item={item} userId={userStore.user.id} />
+            ) : (
+              <BasketPrewiewItem item={item} />
+            )
+          )}
         {items.length > 0 && (
           <div className={styles.btnOrderWrapper}>
             <button
