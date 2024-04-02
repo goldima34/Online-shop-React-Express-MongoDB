@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
 import styles from "../../styles/BasketPrewiew.module.css";
 import { BasketPrewiewItem } from "./BasketPrewiewItem";
 import { Context } from "../..";
@@ -26,7 +25,7 @@ export const BasketPrewiew = ({ active, setActive }) => {
         console.log("user not auth");
       }
     }, 500);
-  }, [userStore.isAuth]);
+  }, [userStore.user.id, userStore.isAuth]);
 
   return (
     <div
@@ -62,7 +61,7 @@ export const BasketPrewiew = ({ active, setActive }) => {
             </button>
           </div>
         )}
-        {items.length == 0 && (
+        {items.length === 0 && (
           <div
             style={{
               display: "flex",

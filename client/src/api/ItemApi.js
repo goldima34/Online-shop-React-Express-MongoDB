@@ -1,4 +1,4 @@
-import $api from "./index";
+import $api from './index'
 
 // export const fetchTypes = async () => {
 //   const { data } = await $api.get("api/type");
@@ -15,38 +15,42 @@ import $api from "./index";
 //   return data;
 // };
 
-export const createProduct = async (device) => {
-  const { data } = await $api.post("product/", device);
-  return data;
-};
+export const createProduct = async (product) => {
+    const { data } = await $api.post('product/', product)
+}
 
 export const fetchProduct = async (page, limit) => {
-  const { data } = await $api.get("product/", {
-    params: {
-      page,
-      limit,
-    },
-  });
-  return data;
-};
+    const { data } = await $api.get('product/', {
+        params: {
+            page,
+            limit,
+        },
+    })
+    return data
+}
 
 export const fetchOneProduct = async (id) => {
-  const { data } = await $api.get("product/" + id);
-  return data;
-};
+    const { data } = await $api.get('product/' + id)
+    return data
+}
 
 export const createCategory = async (category) => {
-  const { data } = await $api.post("/category", category);
-  console.log(data)
-  return data;
-};
+    const { data } = await $api.post('/category', category)
+    console.log(data)
+    return data
+}
 
 export const fetchCategories = async (page, limit) => {
-  const { data } = await $api.get("category/", {
-    params: {
-      page,
-      limit,
-    },
-  });
-  return data;
-};
+    const { data } = await $api.get('category/', {
+        params: {
+            page,
+            limit,
+        },
+    })
+    return data
+}
+
+export const getCategories = async () => {
+     const { data } = await $api.get('category/all')
+     return data
+}

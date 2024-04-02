@@ -11,7 +11,7 @@ export const ShowNotification = () => {
   }, 5000);
 };
 
-export const Notification = ({ name }) => {
+export const Notification = ({ name, text }) => {
   function closeNotification() {
     document.querySelector(`.${styles.notification}`).style.display = "none";
   }
@@ -22,7 +22,7 @@ export const Notification = ({ name }) => {
         <span className={styles.close} onClick={closeNotification}>
           ×
         </span>
-        Товар: {name} додано до корзини
+        {text ? text : `Товар: ${name} додано до корзини`}
         <div className={styles.progressBar}></div>
       </div>
     </div>

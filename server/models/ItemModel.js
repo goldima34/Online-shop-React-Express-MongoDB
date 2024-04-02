@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-const Category = require("./CategoryModel");
+const mongoose = require('mongoose')
 
 const Item = mongoose.Schema({
   name: { type: String, unique: false },
@@ -10,7 +9,7 @@ const Item = mongoose.Schema({
   color: { type: String, unique: false },
   size: { type: String, unique: false },
   availability: { type: Boolean, unique: false },
-  img: [{ type: String, unique: false }],
-});
+  img: [{ type: String, unique: false }]
+})
 
-module.exports = mongoose.model("Item", Item);
+module.exports = mongoose.model('Item', Item)

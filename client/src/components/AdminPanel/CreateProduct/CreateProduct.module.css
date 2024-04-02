@@ -1,0 +1,111 @@
+.ModalBackground {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    background-color: rgba(68, 68, 68, 0.401);
+}
+
+.modalContainer {
+    background-color: #fff;
+    width: 300px;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.modalHedaer {
+    margin: 10px 95px;
+}
+
+.ModalInput {
+    width: 100%;
+}
+
+.ModalInput input {
+    background-color: #c6c6c6;
+    color: black;
+    border: 0;
+    padding: 5px;
+    border-radius: 5px;
+    width: 80%;
+    margin: 5px 25px;
+}
+
+.ModalInput select {
+    background-color: #c6c6c6;
+    color: black;
+    border: 0;
+    padding: 5px;
+    border-radius: 5px;
+    width: 80%;
+    margin: 5px 25px;
+    cursor: pointer;
+}
+
+.ModalFileInput {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+
+.ModalButtonsWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ModalButtonReject {
+    background-color: #DB4444;
+    color: #fff;
+    border: 0;
+    padding: 5px;
+    margin: 5px 28px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ModalButtonAccept {
+    background-color: #46bc31;
+    color: #fff;
+    border: 0;
+    padding: 5px;
+    margin: 5px 28px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@keyframes grow {
+    from {
+        scale: 1;
+    }
+
+    to {
+        scale: 1.1;
+    }
+}
+
+.ModalButtonReject:hover {
+    animation: grow 0.5s ease;
+    scale: 1.1;
+}
+
+.ModalButtonAccept:hover {
+    animation: grow 0.5s ease;
+    scale: 1.1;
+}
+
+.adminErrorInput{
+    color: #DB4444;
+    margin-left: 30px;
+    font-size: 13px;
+}
+
+.adminErrorInput::before {
+    display: inline;
+    content: "⚠ ";
+}

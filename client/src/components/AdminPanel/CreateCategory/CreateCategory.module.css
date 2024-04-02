@@ -55,6 +55,7 @@
     padding: 5px;
     margin: 5px 28px;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .ModalButtonAccept {
@@ -64,4 +65,25 @@
     padding: 5px;
     margin: 5px 28px;
     border-radius: 4px;
+    cursor: pointer;
+}
+
+@keyframes grow {
+    from {
+        scale: 1;
+    }
+
+    to {
+        scale: 1.1;
+    }
+}
+
+.ModalButtonReject:hover {
+    animation: grow 0.5s ease;
+    scale: 1.1;
+}
+
+.ModalButtonAccept:hover {
+    animation: grow 0.5s ease;
+    scale: 1.1;
 }
