@@ -27,9 +27,7 @@ export default class ItemStore {
   setCategory(category) {
     this._category = category;
   }
-  setBrands(brands) {
-    this._brands = brands;
-  }
+  
   setSelectedType(type) {
     this.setPage(1);
     this._selectedType = type;

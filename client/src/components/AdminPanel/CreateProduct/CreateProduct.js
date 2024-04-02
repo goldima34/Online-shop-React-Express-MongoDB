@@ -30,13 +30,12 @@ export const CreateProduct = ({ show, onHide }) => {
   } = useForm()
 
   const addProduct = (data) => {
-    console.log()
     const formData = new FormData()
     formData.append('img', data.file[0])
     formData.append('category', data.category.name)
     formData.append('name', data.name)
     formData.append('price', data.price)
-    //createProduct(formData)
+    createProduct(formData)
     onHide()
     ShowNotification()
   }
@@ -88,6 +87,9 @@ export const CreateProduct = ({ show, onHide }) => {
               {...register('price', { required: true })}
               placeholder={'Введите ціну товара'}
             />
+            {errors.price && (
+              <span className={styles.adminErrorInput}>Введіть ціну</span>
+            )}
           </div>
           <div className={styles.ModalFileInput}>
             <input
@@ -95,6 +97,9 @@ export const CreateProduct = ({ show, onHide }) => {
               onChange={selectFile}
               type="file"
             />
+            {errors.file && (
+              <span className={styles.adminErrorInput}>Виберіть файл</span>
+            )}
           </div>
           <div className={styles.ModalButtonsWrapper}>
             <button className={styles.ModalButtonReject} onClick={onHide}>

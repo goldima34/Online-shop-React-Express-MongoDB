@@ -20,7 +20,7 @@ const CategoryPage = () => {
     setTimeout(() =>{
       setLoading(false);
     }, 500)
-  }, []);
+  }, [item]);
 
   if (loading) {
     return <div>Loading...</div>;

@@ -13,7 +13,7 @@ export const CategoryList = () => {
       item.setCategory(data.category);
       setLoading(false)
     });
-  }, [item.category]);
+  }, [item]);
 
 
   const firstCategories = item.category.slice(0, 8);
@@ -30,7 +30,7 @@ export const CategoryList = () => {
     <div className={styles.CategoryContainer}>
       <ul style={{ listStyle: "none" }}>
         <li className={styles.CategoryListMainItem}>
-          <Link to="/category">All Category</Link>
+          <Link to="/categories">All Category</Link>
         </li>
         <li className={styles.CategoryListItem}>Category</li>
         {firstCategories.map((element) => (

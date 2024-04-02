@@ -22,7 +22,7 @@ export const AdminPage = () => {
           className={style.ModalButton}
           onClick={() => setProductVisible(true)}
         >
-          Добавить тип
+          Добавить товар
         </button>
       </div>
       <CreateCategory
