@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import AuthPage from "../pages/AuthPage";
-import Shop from "../pages/Shop";
-import CabinetPage from "../pages/CabinetPage";
-import ItemPage from "../pages/ItemPage";
-import CategoryPage from "../pages/CategoryPage";
-import { Basket } from "./Basket";
-import { Context } from "..";
-import { BilingDetails } from "../pages/BilingDetails";
-import { AdminPage } from "../pages/AdminPage/AdminPage";
+import AuthPage from "../pages/AuthPage.js";
+import Shop from "../pages/Shop.js";
+import CabinetPage from "../pages/CabinetPage.js";
+import ItemPage from "../pages/ItemPage.js";
+import CategoryPage from "../pages/CategoryPage.js";
+import { Basket } from "./Basket.js";
+import { BilingDetails } from "../pages/BilingDetails.js";
+import { AdminPage } from "../pages/AdminPage/AdminPage.js";
 
 export const AppRouter = () => {
   return (

@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from "./index";
+import { Context } from "./index.js";
 import { observer } from "mobx-react-lite";
-import NavBar from "./components/NavBar";
-import { AppRouter } from "./components/AppRouter";
-import Shop from "./pages/Shop";
+import NavBar from "./components/NavBar.js";
+import { AppRouter } from "./components/AppRouter.js";
 import "./styles/index.module.css";
-import { Footer } from "./components/Footer";
+//import { Footer } from "./components/Footer";
 
 const App = () => {
   const { userStore } = useContext(Context);
